@@ -2,11 +2,13 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { Fragment, useState } from "react";
 import {
-  AudioLines, Bell, CircleUserRound, Feather, Flame, HandHeart, Heart, Home, Loader2, Plus, Search, ShieldAlert, Smile, Users,
+  AudioLines, Bell, Check, MessageCircle, CircleUserRound, Feather, Flame, HandHeart, Heart, Home, Loader2, Plus, Search, ShieldAlert, Smile, Users,
 } from "lucide-react";
 import { toast } from "sonner";
 import { Logo } from "@/components/whisly/Logo";
-import { BottomNav } from "@/components/whisly/BottomNav";
+import { Badge, BottomNav } from "@/components/whisly/BottomNav";
+import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
+import { useUnread } from "@/lib/social";
 import { AdSlot } from "@/components/whisly/AdSlot";
 import { LanguageSwitcher } from "@/components/whisly/LanguageSwitcher";
 import { StoryCard, type FeedStory } from "@/components/whisly/StoryCard";
@@ -45,6 +47,8 @@ function Feed() {
   const { data: profile } = useProfile();
   const { t } = useI18n();
   const [tab, setTab] = useState<Category>("all");
+  const [searchOpen, setSearchOpen] = useState(false);
+  const unread = useUnread(profile?.id);
   const qc = useQueryClient();
   const key = ["feed", profile?.country, tab];
 
@@ -104,11 +108,15 @@ function Feed() {
           <div className="lg:invisible"><Logo /></div>
           <div className="flex items-center gap-1 text-foreground sm:gap-2">
             <LanguageSwitcher />
-            <button aria-label={t("notifications")} className={cn(iconBtn, "relative")} onClick={() => toast(t("soon"))}>
+            <Link to="/messages" search={{}} aria-label={t("messages")} className={cn(iconBtn, "relative hidden lg:block")}>
+              <MessageCircle className="size-6" strokeWidth={1.8} />
+              <Badge n={unread.messages} />
+            </Link>
+            <Link to="/notifications" aria-label={t("notifications")} className={cn(iconBtn, "relative")}>
               <Bell className="size-6" strokeWidth={1.8} />
-              <span className="absolute right-1 top-1 size-2 rounded-full bg-brand-pink" />
-            </button>
-            <button aria-label={t("search")} className={iconBtn} onClick={() => toast(t("soon"))}>
+              <Badge n={unread.notifications} />
+            </Link>
+            <button aria-label={t("filterByCategory")} className={iconBtn} onClick={() => setSearchOpen(true)}>
               <Search className="size-6" strokeWidth={1.8} />
             </button>
             <Link to="/profile" aria-label={t("profile")} className={iconBtn}>
@@ -178,6 +186,31 @@ function Feed() {
       <aside className="sticky top-5 hidden h-fit lg:block">
         <AdSlot variant="sidebar" />
       </aside>
+      <Dialog open={searchOpen} onOpenChange={setSearchOpen}>
+        <DialogContent className="rounded-4xl">
+          <DialogHeader>
+            <DialogTitle>{t("filterByCategory")}</DialogTitle>
+          </DialogHeader>
+          <div className="grid grid-cols-2 gap-2">
+            {TABS.map((tb) => (
+              <button
+                key={tb.id}
+                onClick={() => {
+                  setTab(tb.id);
+                  setSearchOpen(false);
+                }}
+                className={cn(
+                  "flex items-center gap-2 rounded-2xl px-4 py-3 text-start font-medium transition",
+                  tab === tb.id ? "bg-primary text-primary-foreground" : "bg-secondary hover:bg-accent",
+                )}
+              >
+                <tb.icon className="size-5" /> <span className="flex-1">{t(tb.id)}</span>
+                {tab === tb.id && <Check className="size-4" />}
+              </button>
+            ))}
+          </div>
+        </DialogContent>
+      </Dialog>
       <BottomNav active="home" />
     </div>
   );
