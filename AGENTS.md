@@ -14,6 +14,6 @@
 - Signed-in pages live under `src/routes/_authenticated/` (client-only gate); the layout also forces `/onboarding` when a profile has no country, because the feed is country-scoped.
 - Money-related fields (profiles.account_level/subscription_expiry_date, stories.likes_count/support_amount) are never writable by the browser: column grants + triggers + the service-role-only `fulfil_payment` RPC own them.
 - PayPal prices live in `src/lib/plans.ts` and are applied only server-side; orders are created/captured in `src/lib/paypal.functions.ts`, with `/api/public/paypal-webhook` as signature-verified backup fulfilment (idempotent).
-- Story audio is stored privately in the `audio` bucket under `<user_id>/…`; the DB keeps the storage path and the app plays it via signed URLs.
+- Story audio is stored privately in the `audio` bucket under `<user_id>/…`; signed-URL read policies explicitly bind the viewer to their own folder or a published story in their profile country and match the story author to the folder, rather than relying only on story RLS.
 - UI text goes through `useI18n().t()` from `src/lib/i18n.tsx` (English is the fallback for missing keys; Arabic switches the page to RTL), so new strings need an `en` key.
 - Story categories are defined once in `CATEGORIES` (`src/lib/stories.ts`) and must match the `stories_category_check` constraint.
