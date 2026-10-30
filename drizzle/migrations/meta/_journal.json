@@ -29,6 +29,13 @@
       "when": 1793394991795,
       "tag": "0003_phase2_categories_credits_reports",
       "breakpoints": true
+    },
+    {
+      "idx": 4,
+      "version": "7",
+      "when": 1793396242142,
+      "tag": "0004_bind_audio_read_access_to_viewer",
+      "breakpoints": true
     }
   ]
 }
