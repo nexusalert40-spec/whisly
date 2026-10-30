@@ -6,3 +6,4 @@
 - [ ] PayPal live checkout — waiting on PayPal Client ID + Secret
 - [ ] Google Pay charging — waiting on a card processor + Google merchant ID (sheet works in TEST mode)
 - [ ] First admin account — waiting on which email should be admin
+- [ ] First ad campaign — research in progress; channel, countries, creative, account setup and spend approval pending
