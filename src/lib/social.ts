@@ -82,7 +82,7 @@ export function useUnread(me: string | undefined) {
   useEffect(() => {
     if (!me) return;
     const ch = supabase
-      .channel(`user-${me}`)
+      .channel(`user-${me}-${Math.random().toString(36).slice(2)}`)
       .on("postgres_changes", { event: "*", schema: "public", table: "notifications", filter: `user_id=eq.${me}` }, () => {
         void qc.invalidateQueries({ queryKey: ["unread"] });
         void qc.invalidateQueries({ queryKey: ["notifications"] });
