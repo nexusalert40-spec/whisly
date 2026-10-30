@@ -92,6 +92,12 @@ const en = {
   likesReceived: "Likes received", plays: "Plays", stories: "Stories",
   credits: "Credit balance", buyCredits: "Upgrade / Buy credits", signOut: "Sign out",
   premium: "Premium", free: "Free", account: "account", activeUntil: "Active until", noMembership: "No active membership",
+  filterByCategory: "Filter by category", inbox: "Inbox", noConversations: "No conversations yet", typeMessage: "Write a message…",
+  messageCreator: "Message creator", noNotifications: "You're all caught up", markAllRead: "Mark all as read",
+  notifLike: "liked your story", notifMessage: "sent you a message", notifGift: "gifted you credits", notifCredits: "Credits added to your balance",
+  buyCreditsTitle: "Buy credits", payCrypto: "Crypto", payPaypal: "PayPal", payGooglePay: "Google Pay",
+  txHash: "Transaction Hash / ID", submitTx: "Submit for verification", copied: "Copied", someone: "Someone",
+  giftCredits: "Gift credits", notEnoughCredits: "Not enough credits",
   language: "Language", ad: "Sponsored", soon: "Coming soon", deleteConfirm: "Delete this story?",
   home: "Home", messages: "Messages", profile: "Profile", notifications: "Notifications", search: "Search",
 };

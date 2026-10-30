@@ -1,5 +1,6 @@
 import { useState } from "react";
-import { Bookmark, Flag, Gift, Heart, MoreHorizontal, Share2, Trash2, UserRound } from "lucide-react";
+import { Bookmark, Flag, Gift, Heart, MessageCircle, MoreHorizontal, Share2, Trash2, UserRound } from "lucide-react";
+import { useNavigate } from "@tanstack/react-router";
 import { toast } from "sonner";
 import { AudioPlayer } from "./AudioPlayer";
 import { SupportDialog } from "./SupportDialog";
@@ -53,6 +54,7 @@ export function StoryCard({
   const [support, setSupport] = useState(false);
   const [reporting, setReporting] = useState(false);
   const [busy, setBusy] = useState(false);
+  const navigate = useNavigate();
 
   async function share() {
     const url = `${window.location.origin}/feed?story=${story.id}`;
@@ -128,6 +130,11 @@ export function StoryCard({
             <MoreHorizontal className="size-6 text-primary" strokeWidth={1.75} /> {t("more")}
           </DropdownMenuTrigger>
           <DropdownMenuContent align="end" className="rounded-2xl">
+            {!isOwner && (
+              <DropdownMenuItem onClick={() => navigate({ to: "/messages", search: { with: story.user_id } })}>
+                <MessageCircle className="me-2 size-4" /> {t("messageCreator")}
+              </DropdownMenuItem>
+            )}
             {!isOwner && (
               <DropdownMenuItem onClick={() => setReporting(true)}>
                 <Flag className="me-2 size-4" /> {t("report")}

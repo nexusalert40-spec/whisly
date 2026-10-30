@@ -2,7 +2,7 @@ import { createServerFn } from "@tanstack/react-start";
 import { getRequest } from "@tanstack/react-start/server";
 import { z } from "zod";
 import { requireSupabaseAuth } from "@/integrations/supabase/auth-middleware";
-import { PLANS, normaliseSupportAmount, type PlanId } from "./plans";
+import { CREDIT_PACKS, PLANS, normaliseSupportAmount, type PackId, type PlanId } from "./plans";
 import { captureOrder, createOrder, fulfilIfValid } from "./paypal.server";
 
 function originOf() {
@@ -12,9 +12,10 @@ function originOf() {
 
 async function recordPayment(row: {
   user_id: string;
-  kind: "upgrade" | "support";
+  kind: "upgrade" | "support" | "credits";
   plan_id?: string;
   story_id?: string;
+  credits?: number;
   amount: string;
   paypal_order_id: string;
 }) {
@@ -23,11 +24,14 @@ async function recordPayment(row: {
   if (error) throw new Error("Could not record payment");
 }
 
+/** Public PayPal client id for the JS SDK (it is not a secret). */
+export const getPaypalClientId = createServerFn({ method: "GET" }).handler(async () => ({
+  clientId: process.env["PAYPAL_CLIENT_ID"] ?? null,
+}));
+
 export const createUpgradeOrder = createServerFn({ method: "POST" })
   .middleware([requireSupabaseAuth])
-  .inputValidator((d: unknown) =>
-    z.object({ planId: z.enum(["month_1", "month_6", "year_1"]) }).parse(d),
-  )
+  .inputValidator((d: unknown) => z.object({ planId: z.enum(["month_1", "month_6", "year_1"]) }).parse(d))
   .handler(async ({ data, context }) => {
     const plan = PLANS[data.planId as PlanId];
     const origin = originOf();
@@ -38,29 +42,34 @@ export const createUpgradeOrder = createServerFn({ method: "POST" })
       returnUrl: `${origin}/payment-return`,
       cancelUrl: `${origin}/upgrade`,
     });
-    await recordPayment({
-      user_id: context.userId,
-      kind: "upgrade",
-      plan_id: data.planId,
-      amount: plan.price,
-      paypal_order_id: order.id,
+    await recordPayment({ user_id: context.userId, kind: "upgrade", plan_id: data.planId, amount: plan.price, paypal_order_id: order.id });
+    return { orderId: order.id, approveUrl: order.approveUrl };
+  });
+
+export const createCreditsOrder = createServerFn({ method: "POST" })
+  .middleware([requireSupabaseAuth])
+  .inputValidator((d: unknown) => z.object({ packId: z.enum(["pack_100", "pack_550", "pack_1200"]) }).parse(d))
+  .handler(async ({ data, context }) => {
+    const pack = CREDIT_PACKS[data.packId as PackId];
+    const origin = originOf();
+    const order = await createOrder({
+      amount: pack.price,
+      description: `Whisly — ${pack.credits} credits`,
+      customId: `credits:${context.userId}:${data.packId}`,
+      returnUrl: `${origin}/payment-return`,
+      cancelUrl: `${origin}/credits`,
     });
-    return { approveUrl: order.approveUrl };
+    await recordPayment({ user_id: context.userId, kind: "credits", plan_id: data.packId, credits: pack.credits, amount: pack.price, paypal_order_id: order.id });
+    return { orderId: order.id, approveUrl: order.approveUrl };
   });
 
 export const createSupportOrder = createServerFn({ method: "POST" })
   .middleware([requireSupabaseAuth])
-  .inputValidator((d: unknown) =>
-    z.object({ storyId: z.string().uuid(), amount: z.number() }).parse(d),
-  )
+  .inputValidator((d: unknown) => z.object({ storyId: z.string().uuid(), amount: z.number() }).parse(d))
   .handler(async ({ data, context }) => {
     const amount = normaliseSupportAmount(data.amount);
     if (!amount) throw new Error("Amount must be between $1 and $100");
-    const { data: story } = await context.supabase
-      .from("stories")
-      .select("id, user_id, title")
-      .eq("id", data.storyId)
-      .maybeSingle();
+    const { data: story } = await context.supabase.from("stories").select("id, user_id, title").eq("id", data.storyId).maybeSingle();
     if (!story) throw new Error("Story not found");
     if (story.user_id === context.userId) throw new Error("You can't support your own story");
     const origin = originOf();
@@ -71,17 +80,11 @@ export const createSupportOrder = createServerFn({ method: "POST" })
       returnUrl: `${origin}/payment-return`,
       cancelUrl: `${origin}/feed`,
     });
-    await recordPayment({
-      user_id: context.userId,
-      kind: "support",
-      story_id: story.id,
-      amount,
-      paypal_order_id: order.id,
-    });
-    return { approveUrl: order.approveUrl };
+    await recordPayment({ user_id: context.userId, kind: "support", story_id: story.id, amount, paypal_order_id: order.id });
+    return { orderId: order.id, approveUrl: order.approveUrl };
   });
 
-/** Called when PayPal returns the buyer. Capture + verification happen here, server-side. */
+/** Capture + verification happen here, server-side (also used by the SDK's onApprove). */
 export const capturePayment = createServerFn({ method: "POST" })
   .middleware([requireSupabaseAuth])
   .inputValidator((d: unknown) => z.object({ orderId: z.string().min(5).max(64) }).parse(d))

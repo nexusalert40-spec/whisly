@@ -36,6 +36,13 @@
       "when": 1793396242142,
       "tag": "0004_bind_audio_read_access_to_viewer",
       "breakpoints": true
+    },
+    {
+      "idx": 5,
+      "version": "7",
+      "when": 1793397777230,
+      "tag": "0005_messaging_notifications_credits_crypto",
+      "breakpoints": true
     }
   ]
 }

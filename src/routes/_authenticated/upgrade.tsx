@@ -1,8 +1,8 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { useServerFn } from "@tanstack/react-start";
 import { useState } from "react";
-import { ArrowLeft, Check, Crown, Loader2 } from "lucide-react";
-import { toast } from "sonner";
+import { ArrowLeft, Check, Crown } from "lucide-react";
+import { PayPalCheckout } from "@/components/whisly/PayPalCheckout";
 import { Logo } from "@/components/whisly/Logo";
 import { createUpgradeOrder } from "@/lib/paypal.functions";
 import { PLANS, type PlanId } from "@/lib/plans";
@@ -22,19 +22,7 @@ export const Route = createFileRoute("/_authenticated/upgrade")({
 
 function Upgrade() {
   const [plan, setPlan] = useState<PlanId>("month_6");
-  const [loading, setLoading] = useState(false);
   const create = useServerFn(createUpgradeOrder);
-
-  async function checkout() {
-    setLoading(true);
-    try {
-      const { approveUrl } = await create({ data: { planId: plan } });
-      window.location.href = approveUrl;
-    } catch (e) {
-      setLoading(false);
-      toast.error(e instanceof Error ? e.message : "Couldn't start PayPal checkout");
-    }
-  }
 
   return (
     <main className="mx-auto min-h-screen max-w-md px-5 pb-10 pt-5">
@@ -74,13 +62,9 @@ function Upgrade() {
           </button>
         ))}
       </div>
-      <button
-        onClick={checkout}
-        disabled={loading}
-        className="mt-6 flex h-14 w-full items-center justify-center gap-2 rounded-full bg-gradient-cta text-lg font-semibold text-primary-foreground shadow-glow disabled:opacity-60"
-      >
-        {loading && <Loader2 className="size-5 animate-spin" />} Pay with PayPal
-      </button>
+      <div className="mt-6">
+        <PayPalCheckout key={plan} createOrder={() => create({ data: { planId: plan } })} />
+      </div>
       <p className="mt-3 text-center text-xs text-muted-foreground">
         One-time payment. Time is added to your current membership.
       </p>

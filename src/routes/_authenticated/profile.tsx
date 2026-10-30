@@ -118,12 +118,14 @@ function Profile() {
               <p className="text-muted-foreground">{active ? `${t("activeUntil")} ${expiry!.toLocaleDateString()}` : t("noMembership")}</p>
             </div>
           </div>
-          <Link
-            to="/upgrade"
-            className="mt-4 flex h-12 items-center justify-center rounded-full bg-gradient-cta font-semibold text-primary-foreground shadow-glow transition hover:brightness-110"
-          >
-            {t("buyCredits")}
-          </Link>
+          <div className="mt-4 grid grid-cols-2 gap-2">
+            <Link to="/upgrade" className="flex h-12 items-center justify-center rounded-full bg-secondary font-semibold text-primary transition hover:bg-accent">
+              {t("premium")}
+            </Link>
+            <Link to="/credits" className="flex h-12 items-center justify-center rounded-full bg-gradient-cta font-semibold text-primary-foreground shadow-glow transition hover:brightness-110">
+              {t("buyCreditsTitle")}
+            </Link>
+          </div>
         </section>
       </div>
 

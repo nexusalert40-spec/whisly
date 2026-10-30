@@ -17,3 +17,5 @@
 - Story audio is stored privately in the `audio` bucket under `<user_id>/…`; signed-URL read policies explicitly bind the viewer to their own folder or a published story in their profile country and match the story author to the folder, rather than relying only on story RLS.
 - UI text goes through `useI18n().t()` from `src/lib/i18n.tsx` (English is the fallback for missing keys; Arabic switches the page to RTL), so new strings need an `en` key.
 - Story categories are defined once in `CATEGORIES` (`src/lib/stories.ts`) and must match the `stories_category_check` constraint.
+- Messaging and notifications use Lovable Cloud tables (`messages`, `notifications`) with realtime postgres changes via `src/lib/social.ts`; notifications are written only by DB triggers/RPCs so they can't be forged.
+- Credits move only through security-definer RPCs (`gift_credits`, `fulfil_payment`, admin-only `review_crypto_payment`); crypto purchases are manual hash submissions verified by an admin role in `user_roles`.

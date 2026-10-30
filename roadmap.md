@@ -1,7 +1,8 @@
 # Whisly Phase 2
-- [x] Legal terms/privacy page with footer links, accept-to-registration, decline-to-exit, and contact email
-- [x] Languages (9) + RTL, country flags, new categories, More menu (report/share), profile stats + credit balance, ad spaces, responsive layout
-- [ ] Messaging + notifications on Firebase — waiting on Firebase web config + service account
-- [ ] Credit economy (buy coins, gifts in coins, upgrades in coins) — waiting on credit pack prices
-- [ ] Stripe (+ Google Pay) — waiting on Stripe secret key + webhook secret
-- [ ] Crypto ETH Arbitrum / BTC automatic check — waiting on blockchain lookup keys (Arbiscan / BTC explorer)
+- [x] Legal terms/privacy page
+- [x] Languages, flags, categories, More menu, profile stats, ads, responsive layout
+- [x] Category search, real-time messaging + notification badges (Lovable Cloud realtime)
+- [x] Credits: buy packs (PayPal SDK / crypto manual verification), gift credits to creators, admin crypto review
+- [ ] PayPal live checkout — waiting on PayPal Client ID + Secret
+- [ ] Google Pay charging — waiting on a card processor + Google merchant ID (sheet works in TEST mode)
+- [ ] First admin account — waiting on which email should be admin
