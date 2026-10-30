@@ -14,13 +14,191 @@ export type Database = {
   }
   public: {
     Tables: {
-      [_ in never]: never
+      likes: {
+        Row: {
+          created_at: string
+          story_id: string
+          user_id: string
+        }
+        Insert: {
+          created_at?: string
+          story_id: string
+          user_id: string
+        }
+        Update: {
+          created_at?: string
+          story_id?: string
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "likes_story_id_fkey"
+            columns: ["story_id"]
+            isOneToOne: false
+            referencedRelation: "stories"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      payments: {
+        Row: {
+          amount: number
+          created_at: string
+          currency: string
+          id: string
+          kind: string
+          paypal_order_id: string
+          plan_id: string | null
+          processed_at: string | null
+          status: string
+          story_id: string | null
+          user_id: string
+        }
+        Insert: {
+          amount: number
+          created_at?: string
+          currency?: string
+          id?: string
+          kind: string
+          paypal_order_id: string
+          plan_id?: string | null
+          processed_at?: string | null
+          status?: string
+          story_id?: string | null
+          user_id: string
+        }
+        Update: {
+          amount?: number
+          created_at?: string
+          currency?: string
+          id?: string
+          kind?: string
+          paypal_order_id?: string
+          plan_id?: string | null
+          processed_at?: string | null
+          status?: string
+          story_id?: string | null
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "payments_story_id_fkey"
+            columns: ["story_id"]
+            isOneToOne: false
+            referencedRelation: "stories"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      profiles: {
+        Row: {
+          account_level: string
+          country: string | null
+          created_at: string
+          email: string | null
+          id: string
+          name: string
+          subscription_expiry_date: string | null
+        }
+        Insert: {
+          account_level?: string
+          country?: string | null
+          created_at?: string
+          email?: string | null
+          id: string
+          name?: string
+          subscription_expiry_date?: string | null
+        }
+        Update: {
+          account_level?: string
+          country?: string | null
+          created_at?: string
+          email?: string | null
+          id?: string
+          name?: string
+          subscription_expiry_date?: string | null
+        }
+        Relationships: []
+      }
+      saves: {
+        Row: {
+          created_at: string
+          story_id: string
+          user_id: string
+        }
+        Insert: {
+          created_at?: string
+          story_id: string
+          user_id: string
+        }
+        Update: {
+          created_at?: string
+          story_id?: string
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "saves_story_id_fkey"
+            columns: ["story_id"]
+            isOneToOne: false
+            referencedRelation: "stories"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      stories: {
+        Row: {
+          audio_url: string
+          category: string
+          country: string
+          created_at: string
+          duration_seconds: number
+          id: string
+          likes_count: number
+          support_amount: number
+          title: string
+          user_id: string
+        }
+        Insert: {
+          audio_url: string
+          category: string
+          country?: string
+          created_at?: string
+          duration_seconds?: number
+          id?: string
+          likes_count?: number
+          support_amount?: number
+          title: string
+          user_id: string
+        }
+        Update: {
+          audio_url?: string
+          category?: string
+          country?: string
+          created_at?: string
+          duration_seconds?: number
+          id?: string
+          likes_count?: number
+          support_amount?: number
+          title?: string
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "stories_user_id_fkey"
+            columns: ["user_id"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
     }
     Views: {
       [_ in never]: never
     }
     Functions: {
-      [_ in never]: never
+      fulfil_payment: { Args: { _order_id: string }; Returns: boolean }
     }
     Enums: {
       [_ in never]: never
