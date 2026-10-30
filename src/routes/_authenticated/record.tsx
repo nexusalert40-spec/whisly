@@ -1,3 +1,4 @@
+import { CATEGORIES } from "@/lib/stories";
 import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
 import { useQueryClient } from "@tanstack/react-query";
 import { useEffect, useRef, useState } from "react";
@@ -23,7 +24,7 @@ export const Route = createFileRoute("/_authenticated/record")({
 });
 
 type Phase = "idle" | "recording" | "recorded";
-const CATS = ["love", "life", "other"] as const;
+const CATS = CATEGORIES;
 const LEFT = [0.25, 0.45, 0.7, 1, 0.7, 0.45];
 
 function pickMime() {
@@ -172,7 +173,7 @@ function RecordPage() {
         />
       </label>
 
-      <div className="mt-4 flex justify-center gap-2">
+      <div className="mt-4 flex flex-wrap justify-center gap-2">
         {CATS.map((c) => (
           <button
             key={c}

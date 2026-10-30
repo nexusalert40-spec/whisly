@@ -24,3 +24,13 @@ export function countryOptions() {
 export function isCountryCode(v: string) {
   return CODES.includes(v);
 }
+
+/** Flag emoji built from the two regional-indicator letters of the ISO code. */
+export function countryFlag(code: string | null | undefined): string {
+  if (!code || code.length !== 2) return "";
+  return String.fromCodePoint(...[...code.toUpperCase()].map((c) => 0x1f1e6 + c.charCodeAt(0) - 65));
+}
+
+export function countryLabel(code: string | null | undefined): string {
+  return code ? `${countryFlag(code)} ${countryName(code)}` : "";
+}
