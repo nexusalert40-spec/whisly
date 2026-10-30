@@ -86,11 +86,11 @@ function Signup() {
           <h1 className="text-center text-2xl font-bold">Sign up for Whisly</h1>
           <p className="mt-1 text-center text-foreground/80">Join the Whisly community</p>
           <div className="mt-5 space-y-3">
-            <Field label="Full name" icon={<User />} placeholder="eg. John Doe" autoComplete="name" value={form.name} onChange={set("name")} error={errors.name} />
-            <Field label="Email" icon={<Mail />} type="email" placeholder="example@mail.com" autoComplete="email" value={form.email} onChange={set("email")} error={errors.email} />
-            <CountrySelect value={form.country} onChange={(country) => setForm({ ...form, country })} error={errors.country} />
-            <Field label="Password" icon={<Lock />} password placeholder="Enter your password" autoComplete="new-password" value={form.password} onChange={set("password")} error={errors.password} />
-            <Field label="Confirm password" icon={<Lock />} password placeholder="Confirm your password" autoComplete="new-password" value={form.confirm} onChange={set("confirm")} error={errors.confirm} />
+            <Field label="Full name" icon={<User />} placeholder="eg. John Doe" autoComplete="name" value={form.name} onChange={set("name")} error={errors["name"]} />
+            <Field label="Email" icon={<Mail />} type="email" placeholder="example@mail.com" autoComplete="email" value={form.email} onChange={set("email")} error={errors["email"]} />
+            <CountrySelect value={form.country} onChange={(country) => setForm({ ...form, country })} error={errors["country"]} />
+            <Field label="Password" icon={<Lock />} password placeholder="Enter your password" autoComplete="new-password" value={form.password} onChange={set("password")} error={errors["password"]} />
+            <Field label="Confirm password" icon={<Lock />} password placeholder="Confirm your password" autoComplete="new-password" value={form.confirm} onChange={set("confirm")} error={errors["confirm"]} />
           </div>
           <GradientButton type="submit" loading={loading} className="mt-6">
             Register
