@@ -15,6 +15,8 @@ export const Route = createFileRoute("/")({
       { name: "description", content: "Record and share voice stories with people from your country." },
       { property: "og:title", content: "Whisly — Your voice. Your story." },
       { property: "og:description", content: "Record and share voice stories with people from your country." },
+      { property: "og:type", content: "website" },
+      { name: "twitter:card", content: "summary" },
     ],
   }),
   component: Welcome,

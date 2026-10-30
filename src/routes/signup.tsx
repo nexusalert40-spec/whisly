@@ -16,6 +16,8 @@ export const Route = createFileRoute("/signup")({
       { name: "description", content: "Join the Whisly community and share your voice." },
       { property: "og:title", content: "Sign up — Whisly" },
       { property: "og:description", content: "Join the Whisly community and share your voice." },
+      { property: "og:type", content: "website" },
+      { name: "twitter:card", content: "summary" },
     ],
   }),
   component: Signup,
