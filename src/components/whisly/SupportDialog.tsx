@@ -25,7 +25,7 @@ export function SupportDialog({
 
   async function pay() {
     const v = normaliseSupportAmount(Number(amount));
-    if (!v) return toast.error("Choose an amount between $1 and $100");
+    if (!v) { toast.error("Choose an amount between $1 and $100"); return; }
     setLoading(true);
     try {
       const { approveUrl } = await create({ data: { storyId, amount: Number(v) } });

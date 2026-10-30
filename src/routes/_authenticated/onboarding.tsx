@@ -40,7 +40,7 @@ function Onboarding() {
 
   async function save(e: React.FormEvent) {
     e.preventDefault();
-    if (!isCountryCode(country)) return setError("Choose your country");
+    if (!isCountryCode(country)) { setError("Choose your country"); return; }
     if (!profile) return;
     setLoading(true);
     const { error } = await supabase
@@ -48,7 +48,7 @@ function Onboarding() {
       .update({ country, name: name.trim().slice(0, 100) })
       .eq("id", profile.id);
     setLoading(false);
-    if (error) return toast.error("Couldn't save. Please try again.");
+    if (error) { toast.error("Couldn't save. Please try again."); return; }
     await qc.invalidateQueries({ queryKey: ["profile"] });
     navigate({ to: "/feed", replace: true });
   }

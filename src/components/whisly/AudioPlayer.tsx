@@ -17,7 +17,7 @@ function bars(seed: string, n = 42) {
   });
 }
 
-export function AudioPlayer({ src, seed, duration }: { src?: string; seed: string; duration: number }) {
+export function AudioPlayer({ src, seed, duration }: { src?: string | undefined; seed: string; duration: number }) {
   const ref = useRef<HTMLAudioElement>(null);
   const [playing, setPlaying] = useState(false);
   const [time, setTime] = useState(0);

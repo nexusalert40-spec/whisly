@@ -10,7 +10,7 @@ export function CountrySelect({
 }: {
   value: string;
   onChange: (v: string) => void;
-  error?: string;
+  error?: string | undefined;
 }) {
   const options = useMemo(() => countryOptions(), []);
   return (

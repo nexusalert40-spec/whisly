@@ -59,7 +59,7 @@ function RecordPage() {
 
   async function start() {
     if (!navigator.mediaDevices?.getUserMedia || typeof MediaRecorder === "undefined") {
-      return toast.error("Recording isn't supported in this browser");
+      { toast.error("Recording isn't supported in this browser"); return; }
     }
     try {
       const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
@@ -113,10 +113,10 @@ function RecordPage() {
   }
 
   async function publish() {
-    if (!profile || !blob) return toast.error("Record your story first");
+    if (!profile || !blob) { toast.error("Record your story first"); return; }
     const t = title.trim();
-    if (t.length < 2 || t.length > 120) return toast.error("Give your story a title (2–120 characters)");
-    if (seconds < 2) return toast.error("Recording is too short");
+    if (t.length < 2 || t.length > 120) { toast.error("Give your story a title (2–120 characters)"); return; }
+    if (seconds < 2) { toast.error("Recording is too short"); return; }
     setPublishing(true);
     try {
       const ext = blob.type.includes("mp4") ? "m4a" : blob.type.includes("ogg") ? "ogg" : "webm";

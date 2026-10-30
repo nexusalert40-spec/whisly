@@ -80,7 +80,7 @@ function Login() {
             placeholder="example@mail.com"
             value={form.email}
             onChange={(e) => setForm({ ...form, email: e.target.value })}
-            error={errors.email}
+            error={errors["email"]}
           />
           <Field
             label="Password"
@@ -90,7 +90,7 @@ function Login() {
             placeholder="Enter your password"
             value={form.password}
             onChange={(e) => setForm({ ...form, password: e.target.value })}
-            error={errors.password}
+            error={errors["password"]}
           />
         </div>
         <GradientButton type="submit" loading={loading} className="mt-6">

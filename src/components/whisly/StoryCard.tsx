@@ -41,7 +41,7 @@ export function StoryCard({
   onDelete?: () => void;
 }) {
   const [support, setSupport] = useState(false);
-  const cat = story.category[0].toUpperCase() + story.category.slice(1);
+  const cat = story.category.charAt(0).toUpperCase() + story.category.slice(1);
 
   return (
     <article className="rounded-3xl bg-card p-4 shadow-soft">

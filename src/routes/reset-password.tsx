@@ -29,13 +29,13 @@ function ResetPassword() {
   async function submit(e: React.FormEvent) {
     e.preventDefault();
     const r = passwordSchema.safeParse(pw);
-    if (!r.success) return setError(r.error.issues[0].message);
-    if (pw !== confirm) return setError("Passwords don't match");
+    if (!r.success) { setError(r.error.issues[0]?.message ?? "Invalid password"); return; }
+    if (pw !== confirm) { setError("Passwords don't match"); return; }
     setError(undefined);
     setLoading(true);
     const { error } = await supabase.auth.updateUser({ password: pw });
     setLoading(false);
-    if (error) return toast.error("This reset link is invalid or expired. Request a new one.");
+    if (error) { toast.error("This reset link is invalid or expired. Request a new one."); return; }
     toast.success("Password updated");
     navigate({ to: "/feed", replace: true });
   }

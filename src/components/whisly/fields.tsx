@@ -11,8 +11,8 @@ export function Field({
 }: InputHTMLAttributes<HTMLInputElement> & {
   label: string;
   icon: ReactNode;
-  error?: string;
-  password?: boolean;
+  error?: string | undefined;
+  password?: boolean | undefined;
 }) {
   const [show, setShow] = useState(false);
   return (
