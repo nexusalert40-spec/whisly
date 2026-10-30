@@ -44,7 +44,7 @@ export function StoryCard({
 }: {
   story: FeedStory;
   isOwner: boolean;
-  viewerId?: string;
+  viewerId?: string | undefined;
   onLike: () => void;
   onSave: () => void;
   onDelete?: () => void;
