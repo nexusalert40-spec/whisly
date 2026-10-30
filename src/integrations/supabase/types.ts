@@ -14,6 +14,42 @@ export type Database = {
   }
   public: {
     Tables: {
+      crypto_payments: {
+        Row: {
+          created_at: string
+          credits: number | null
+          id: string
+          network: string
+          pack_id: string
+          reviewed_at: string | null
+          status: string
+          tx_hash: string
+          user_id: string
+        }
+        Insert: {
+          created_at?: string
+          credits?: number | null
+          id?: string
+          network: string
+          pack_id: string
+          reviewed_at?: string | null
+          status?: string
+          tx_hash: string
+          user_id: string
+        }
+        Update: {
+          created_at?: string
+          credits?: number | null
+          id?: string
+          network?: string
+          pack_id?: string
+          reviewed_at?: string | null
+          status?: string
+          tx_hash?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
       likes: {
         Row: {
           created_at: string
@@ -40,10 +76,79 @@ export type Database = {
           },
         ]
       }
+      messages: {
+        Row: {
+          body: string
+          created_at: string
+          id: string
+          read_at: string | null
+          recipient_id: string
+          sender_id: string
+        }
+        Insert: {
+          body: string
+          created_at?: string
+          id?: string
+          read_at?: string | null
+          recipient_id: string
+          sender_id: string
+        }
+        Update: {
+          body?: string
+          created_at?: string
+          id?: string
+          read_at?: string | null
+          recipient_id?: string
+          sender_id?: string
+        }
+        Relationships: []
+      }
+      notifications: {
+        Row: {
+          actor_id: string | null
+          amount: number | null
+          created_at: string
+          id: string
+          kind: string
+          read: boolean
+          story_id: string | null
+          user_id: string
+        }
+        Insert: {
+          actor_id?: string | null
+          amount?: number | null
+          created_at?: string
+          id?: string
+          kind: string
+          read?: boolean
+          story_id?: string | null
+          user_id: string
+        }
+        Update: {
+          actor_id?: string | null
+          amount?: number | null
+          created_at?: string
+          id?: string
+          kind?: string
+          read?: boolean
+          story_id?: string | null
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "notifications_story_id_fkey"
+            columns: ["story_id"]
+            isOneToOne: false
+            referencedRelation: "stories"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       payments: {
         Row: {
           amount: number
           created_at: string
+          credits: number | null
           currency: string
           id: string
           kind: string
@@ -57,6 +162,7 @@ export type Database = {
         Insert: {
           amount: number
           created_at?: string
+          credits?: number | null
           currency?: string
           id?: string
           kind: string
@@ -70,6 +176,7 @@ export type Database = {
         Update: {
           amount?: number
           created_at?: string
+          credits?: number | null
           currency?: string
           id?: string
           kind?: string
@@ -231,17 +338,58 @@ export type Database = {
           },
         ]
       }
+      user_roles: {
+        Row: {
+          id: string
+          role: Database["public"]["Enums"]["app_role"]
+          user_id: string
+        }
+        Insert: {
+          id?: string
+          role: Database["public"]["Enums"]["app_role"]
+          user_id: string
+        }
+        Update: {
+          id?: string
+          role?: Database["public"]["Enums"]["app_role"]
+          user_id?: string
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never
     }
     Functions: {
+      can_message: { Args: { _recipient: string }; Returns: boolean }
       current_user_country: { Args: never; Returns: string }
       fulfil_payment: { Args: { _order_id: string }; Returns: boolean }
+      get_display_names: {
+        Args: { _ids: string[] }
+        Returns: {
+          id: string
+          name: string
+        }[]
+      }
+      gift_credits: {
+        Args: { _amount: number; _story_id: string }
+        Returns: number
+      }
+      has_role: {
+        Args: {
+          _role: Database["public"]["Enums"]["app_role"]
+          _user_id: string
+        }
+        Returns: boolean
+      }
       record_play: { Args: { _story_id: string }; Returns: undefined }
+      review_crypto_payment: {
+        Args: { _approve: boolean; _id: string }
+        Returns: undefined
+      }
     }
     Enums: {
-      [_ in never]: never
+      app_role: "admin" | "moderator" | "user"
     }
     CompositeTypes: {
       [_ in never]: never
@@ -368,6 +516,8 @@ export type CompositeTypes<
 
 export const Constants = {
   public: {
-    Enums: {},
+    Enums: {
+      app_role: ["admin", "moderator", "user"],
+    },
   },
 } as const
