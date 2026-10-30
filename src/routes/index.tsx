@@ -1,24 +1,91 @@
-import { createFileRoute } from "@tanstack/react-router";
+import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
+import { useEffect, useState } from "react";
+import { Mail, Loader2 } from "lucide-react";
+import { toast } from "sonner";
+import { LogoMark } from "@/components/whisly/Logo";
+import { GoogleIcon } from "@/components/whisly/fields";
+import { signInWithGoogle } from "@/lib/auth";
+import { supabase } from "@/integrations/supabase/client";
 
-// No head() here: the home route inherits title/description/og/twitter from
-// __root.tsx, and ships no og:image so serve-time hosting can inject the
-// project's social preview (explicit og:image or latest screenshot).
 export const Route = createFileRoute("/")({
-  component: Index,
+  head: () => ({
+    meta: [
+      { title: "Whisly — Your voice. Your story." },
+      { name: "description", content: "Record and share voice stories with people from your country." },
+      { property: "og:title", content: "Whisly — Your voice. Your story." },
+      { property: "og:description", content: "Record and share voice stories with people from your country." },
+    ],
+  }),
+  component: Welcome,
 });
 
-// IMPORTANT: Replace this placeholder. See ./README.md for routing conventions.
-function Index() {
+function Welcome() {
+  const navigate = useNavigate();
+  const [busy, setBusy] = useState(false);
+
+  // Already signed in (or just back from Google) → go to the feed.
+  useEffect(() => {
+    supabase.auth.getSession().then(({ data }) => {
+      if (data.session) navigate({ to: "/feed", replace: true });
+    });
+    const { data } = supabase.auth.onAuthStateChange((e, s) => {
+      if (e === "SIGNED_IN" && s) navigate({ to: "/feed", replace: true });
+    });
+    return () => data.subscription.unsubscribe();
+  }, [navigate]);
+
+  async function google() {
+    setBusy(true);
+    const res = await signInWithGoogle();
+    if (res.error) {
+      toast.error("Google sign-in failed. Please try again.");
+      setBusy(false);
+      return;
+    }
+    if (res.redirected) return;
+    navigate({ to: "/feed", replace: true });
+  }
+
   return (
-    <div
-      className="flex min-h-screen items-center justify-center"
-      style={{ backgroundColor: "#fcfbf8" }}
-    >
-      <img
-        data-lovable-blank-page-placeholder="REMOVE_THIS"
-        src="https://cdn.gpteng.co/blank-app-v1.svg"
-        alt="Your app will live here!"
-      />
-    </div>
+    <main className="mx-auto flex min-h-screen max-w-md flex-col px-6 pb-8 pt-24">
+      <div className="flex flex-col items-center text-center">
+        <LogoMark className="h-24" />
+        <h1 className="mt-4 text-6xl font-extrabold tracking-tight text-foreground">Whisly</h1>
+        <p className="mt-3 text-xl text-foreground/80">Your voice. Your story.</p>
+      </div>
+
+      <div className="mt-16 space-y-4">
+        <button
+          onClick={google}
+          disabled={busy}
+          className="flex h-15 w-full items-center justify-center gap-4 rounded-full bg-card text-lg font-medium text-foreground shadow-soft transition active:scale-[0.98] disabled:opacity-60"
+        >
+          {busy ? <Loader2 className="size-5 animate-spin" /> : <GoogleIcon />}
+          Continue with Google
+        </button>
+        <Link
+          to="/login"
+          className="flex h-15 w-full items-center justify-center gap-4 rounded-full bg-primary text-lg font-medium text-primary-foreground shadow-glow transition active:scale-[0.98]"
+        >
+          <Mail className="size-6" />
+          Continue with email
+        </Link>
+      </div>
+
+      <div className="mt-8 flex items-center gap-4 px-6 text-sm font-semibold text-muted-foreground">
+        <span className="h-px flex-1 bg-border" /> OR <span className="h-px flex-1 bg-border" />
+      </div>
+      <p className="mt-6 text-center text-foreground/80">
+        New to Whisly?{" "}
+        <Link to="/signup" className="font-semibold text-primary">
+          Create account
+        </Link>
+      </p>
+
+      <p className="mt-auto pt-12 text-center text-xs text-muted-foreground">
+        By continuing, you agree to our{" "}
+        <span className="font-semibold text-primary">Terms &amp; Privacy Policy</span>
+      </p>
+    </main>
   );
 }
