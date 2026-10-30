@@ -1,3 +1,4 @@
+import { useI18n } from "@/lib/i18n";
 import { CATEGORIES } from "@/lib/stories";
 import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
 import { useQueryClient } from "@tanstack/react-query";
@@ -34,6 +35,7 @@ function pickMime() {
 
 function RecordPage() {
   const { data: profile } = useProfile();
+  const { t } = useI18n();
   const navigate = useNavigate();
   const qc = useQueryClient();
   const [title, setTitle] = useState("");
@@ -179,11 +181,11 @@ function RecordPage() {
             key={c}
             onClick={() => setCategory(c)}
             className={cn(
-              "rounded-full px-5 py-2 text-sm font-medium capitalize",
+              "rounded-full px-4 py-2 text-sm font-medium transition hover:-translate-y-0.5",
               category === c ? "bg-primary text-primary-foreground" : "bg-secondary text-foreground",
             )}
           >
-            {c}
+            {t(c)}
           </button>
         ))}
       </div>

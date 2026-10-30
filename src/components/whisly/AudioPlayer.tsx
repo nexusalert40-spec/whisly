@@ -17,11 +17,12 @@ function bars(seed: string, n = 42) {
   });
 }
 
-export function AudioPlayer({ src, seed, duration }: { src?: string | undefined; seed: string; duration: number }) {
+export function AudioPlayer({ src, seed, duration, onFirstPlay }: { src?: string | undefined; seed: string; duration: number; onFirstPlay?: () => void }) {
   const ref = useRef<HTMLAudioElement>(null);
   const [playing, setPlaying] = useState(false);
   const [time, setTime] = useState(0);
   const [dur, setDur] = useState(duration);
+  const counted = useRef(false);
   const wave = useMemo(() => bars(seed), [seed]);
   const pct = dur ? Math.min(1, time / dur) : 0;
 
@@ -50,6 +51,7 @@ export function AudioPlayer({ src, seed, duration }: { src?: string | undefined;
     } else {
       // Pause any other playing story.
       document.querySelectorAll("audio").forEach((el) => el !== a && el.pause());
+      if (!counted.current) { counted.current = true; onFirstPlay?.(); }
       a.play().then(() => setPlaying(true)).catch(() => setPlaying(false));
     }
   }
@@ -68,7 +70,7 @@ export function AudioPlayer({ src, seed, duration }: { src?: string | undefined;
         onClick={toggle}
         disabled={!src}
         aria-label={playing ? "Pause" : "Play"}
-        className="flex size-12 shrink-0 items-center justify-center rounded-full bg-primary text-primary-foreground disabled:opacity-50"
+        className="flex size-12 shrink-0 items-center justify-center rounded-full bg-gradient-plus text-primary-foreground shadow-glow transition hover:scale-105 active:scale-95 disabled:opacity-50"
       >
         {playing ? <Pause className="size-6" fill="currentColor" /> : <Play className="ml-0.5 size-6" fill="currentColor" />}
       </button>
