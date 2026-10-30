@@ -15,6 +15,13 @@
       "when": 1793386934956,
       "tag": "0001_audio_storage_policies",
       "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "7",
+      "when": 1793389613247,
+      "tag": "0002_scope_story_and_audio_reads",
+      "breakpoints": true
     }
   ]
 }

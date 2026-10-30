@@ -198,6 +198,7 @@ export type Database = {
       [_ in never]: never
     }
     Functions: {
+      current_user_country: { Args: never; Returns: string }
       fulfil_payment: { Args: { _order_id: string }; Returns: boolean }
     }
     Enums: {
