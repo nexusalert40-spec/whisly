@@ -7,6 +7,7 @@ import { Field, GradientButton } from "@/components/whisly/fields";
 import { CountrySelect } from "@/components/whisly/CountrySelect";
 import { signupSchema } from "@/lib/auth";
 import { supabase } from "@/integrations/supabase/client";
+import { useI18n } from "@/lib/i18n";
 
 export const Route = createFileRoute("/signup")({
   head: () => ({
@@ -15,12 +16,15 @@ export const Route = createFileRoute("/signup")({
       { name: "description", content: "Join the Whisly community and share your voice." },
       { property: "og:title", content: "Sign up — Whisly" },
       { property: "og:description", content: "Join the Whisly community and share your voice." },
+      { property: "og:type", content: "website" },
+      { name: "twitter:card", content: "summary" },
     ],
   }),
   component: Signup,
 });
 
 function Signup() {
+  const { t } = useI18n();
   const [form, setForm] = useState({ name: "", email: "", password: "", confirm: "", country: "" });
   const [errors, setErrors] = useState<Record<string, string>>({});
   const [loading, setLoading] = useState(false);
@@ -107,7 +111,8 @@ function Signup() {
         </form>
       )}
       <p className="relative z-10 mt-6 text-center text-sm text-foreground/80">
-        By continuing, you agree to our Terms &amp; Conditions and Privacy Policy
+        {t("legalFooterPrefix")}{" "}
+        <Link to="/legal" className="font-semibold text-primary underline-offset-4 hover:underline">{t("legalTitle")}</Link>
       </p>
       <WaveFooter />
     </main>
