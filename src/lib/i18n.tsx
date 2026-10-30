@@ -3,6 +3,7 @@
  * The chosen language is stored in localStorage and applied after hydration.
  */
 import { createContext, useCallback, useContext, useEffect, useState, type ReactNode } from "react";
+import { languageForCountry } from "./country-language";
 
 export const LANGS = [
   { code: "en", label: "English", flag: "🇬🇧" },
@@ -115,8 +116,15 @@ const DICTS: Record<Lang, Partial<Dict>> = {
   pt: { createVoice: "Criar voz", shareStory: "Partilhe a sua história, a sua voz", storiesFrom: "Sentimentos e histórias de", noStories: "Ainda sem histórias", beFirst: "Seja a primeira voz do seu país.", all: "Tudo", love: "Amor", life: "Vida", friendship: "Amizade", negative: "Comportamentos negativos", freedom: "Liberdade", family: "Família", other: "Outro", like: "Gosto", support: "Apoiar", save: "Guardar", saved: "Guardado", more: "Mais", report: "Denunciar história", share: "Partilhar noutras plataformas", linkCopied: "Link copiado", send: "Enviar", you: "Você", anonymous: "Anónimo", myStories: "As minhas histórias", likesReceived: "Gostos recebidos", plays: "Reproduções", stories: "Histórias", credits: "Saldo de créditos", buyCredits: "Melhorar / Comprar créditos", signOut: "Sair", language: "Idioma", ad: "Patrocinado", home: "Início", messages: "Mensagens", profile: "Perfil" },
 };
 
-type Ctx = { lang: Lang; setLang: (l: Lang) => void; t: (k: keyof Dict) => string };
-const I18nCtx = createContext<Ctx>({ lang: "en", setLang: () => {}, t: (k) => en[k] });
+type Ctx = {
+  lang: Lang;
+  /** Manual choice from the switcher — overrides the country language until the country changes. */
+  setLang: (l: Lang) => void;
+  /** Country-driven language. `force` ignores (and clears) any manual override. */
+  applyCountry: (country: string | null | undefined, force?: boolean) => void;
+  t: (k: keyof Dict) => string;
+};
+const I18nCtx = createContext<Ctx>({ lang: "en", setLang: () => {}, applyCountry: () => {}, t: (k) => en[k] });
 
 export function I18nProvider({ children }: { children: ReactNode }) {
   const [lang, setLangState] = useState<Lang>("en");
@@ -132,10 +140,22 @@ export function I18nProvider({ children }: { children: ReactNode }) {
   }, [lang]);
   const setLang = useCallback((l: Lang) => {
     localStorage.setItem("whisly-lang", l);
+    localStorage.setItem("whisly-lang-manual", "1");
+    setLangState(l);
+  }, []);
+  const applyCountry = useCallback((country: string | null | undefined, force = false) => {
+    if (!country) return;
+    const last = localStorage.getItem("whisly-lang-country");
+    // A manual pick sticks until the user's country changes (or a forced apply).
+    if (!force && localStorage.getItem("whisly-lang-manual") && last === country) return;
+    const l = languageForCountry(country);
+    localStorage.setItem("whisly-lang", l);
+    localStorage.setItem("whisly-lang-country", country);
+    localStorage.removeItem("whisly-lang-manual");
     setLangState(l);
   }, []);
   const t = useCallback((k: keyof Dict) => DICTS[lang][k] ?? en[k], [lang]);
-  return <I18nCtx.Provider value={{ lang, setLang, t }}>{children}</I18nCtx.Provider>;
+  return <I18nCtx.Provider value={{ lang, setLang, applyCountry, t }}>{children}</I18nCtx.Provider>;
 }
 
 export const useI18n = () => useContext(I18nCtx);

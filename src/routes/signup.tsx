@@ -24,7 +24,7 @@ export const Route = createFileRoute("/signup")({
 });
 
 function Signup() {
-  const { t } = useI18n();
+  const { t, applyCountry } = useI18n();
   const [form, setForm] = useState({ name: "", email: "", password: "", confirm: "", country: "" });
   const [errors, setErrors] = useState<Record<string, string>>({});
   const [loading, setLoading] = useState(false);
@@ -92,7 +92,7 @@ function Signup() {
           <div className="mt-5 space-y-3">
             <Field label="Full name" icon={<User />} placeholder="eg. John Doe" autoComplete="name" value={form.name} onChange={set("name")} error={errors["name"]} />
             <Field label="Email" icon={<Mail />} type="email" placeholder="example@mail.com" autoComplete="email" value={form.email} onChange={set("email")} error={errors["email"]} />
-            <CountrySelect value={form.country} onChange={(country) => setForm({ ...form, country })} error={errors["country"]} />
+            <CountrySelect value={form.country} onChange={(country) => { setForm({ ...form, country }); applyCountry(country, true); }} error={errors["country"]} />
             <Field label="Password" icon={<Lock />} password placeholder="Enter your password" autoComplete="new-password" value={form.password} onChange={set("password")} error={errors["password"]} />
             <Field label="Confirm password" icon={<Lock />} password placeholder="Confirm your password" autoComplete="new-password" value={form.confirm} onChange={set("confirm")} error={errors["confirm"]} />
           </div>

@@ -9,6 +9,7 @@ import { CountrySelect } from "@/components/whisly/CountrySelect";
 import { isCountryCode } from "@/lib/countries";
 import { useProfile } from "@/hooks/use-profile";
 import { supabase } from "@/integrations/supabase/client";
+import { useI18n } from "@/lib/i18n";
 
 export const Route = createFileRoute("/_authenticated/onboarding")({
   head: () => ({
@@ -24,6 +25,7 @@ export const Route = createFileRoute("/_authenticated/onboarding")({
 
 function Onboarding() {
   const { data: profile } = useProfile();
+  const { applyCountry } = useI18n();
   const qc = useQueryClient();
   const navigate = useNavigate();
   const [name, setName] = useState("");
@@ -60,7 +62,7 @@ function Onboarding() {
         <h1 className="text-2xl font-bold">One last step</h1>
         <p className="text-muted-foreground">Your feed shows stories from your country.</p>
         <Field label="Full name" icon={<User />} value={name} onChange={(e) => setName(e.target.value)} />
-        <CountrySelect value={country} onChange={setCountry} error={error} />
+        <CountrySelect value={country} onChange={(c) => { setCountry(c); applyCountry(c, true); }} error={error} />
         <GradientButton type="submit" loading={loading}>Continue</GradientButton>
       </form>
       <WaveFooter />
