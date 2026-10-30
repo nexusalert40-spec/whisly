@@ -19,7 +19,7 @@ export const Route = createFileRoute("/_authenticated/record")({
       { property: "og:description", content: "Record a voice story up to five minutes long." },
     ],
   }),
-  component: Record,
+  component: RecordPage,
 });
 
 type Phase = "idle" | "recording" | "recorded";
@@ -31,7 +31,7 @@ function pickMime() {
   return types.find((t) => typeof MediaRecorder !== "undefined" && MediaRecorder.isTypeSupported(t)) ?? "";
 }
 
-function Record() {
+function RecordPage() {
   const { data: profile } = useProfile();
   const navigate = useNavigate();
   const qc = useQueryClient();
