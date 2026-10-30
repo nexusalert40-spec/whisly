@@ -22,6 +22,13 @@
       "when": 1793389613247,
       "tag": "0002_scope_story_and_audio_reads",
       "breakpoints": true
+    },
+    {
+      "idx": 3,
+      "version": "7",
+      "when": 1793394991795,
+      "tag": "0003_phase2_categories_credits_reports",
+      "breakpoints": true
     }
   ]
 }

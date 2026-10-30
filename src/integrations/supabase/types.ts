@@ -95,6 +95,7 @@ export type Database = {
           account_level: string
           country: string | null
           created_at: string
+          credits: number
           email: string | null
           id: string
           name: string
@@ -104,6 +105,7 @@ export type Database = {
           account_level?: string
           country?: string | null
           created_at?: string
+          credits?: number
           email?: string | null
           id: string
           name?: string
@@ -113,6 +115,7 @@ export type Database = {
           account_level?: string
           country?: string | null
           created_at?: string
+          credits?: number
           email?: string | null
           id?: string
           name?: string
@@ -155,6 +158,7 @@ export type Database = {
           duration_seconds: number
           id: string
           likes_count: number
+          plays_count: number
           support_amount: number
           title: string
           user_id: string
@@ -167,6 +171,7 @@ export type Database = {
           duration_seconds?: number
           id?: string
           likes_count?: number
+          plays_count?: number
           support_amount?: number
           title: string
           user_id: string
@@ -179,6 +184,7 @@ export type Database = {
           duration_seconds?: number
           id?: string
           likes_count?: number
+          plays_count?: number
           support_amount?: number
           title?: string
           user_id?: string
@@ -193,6 +199,38 @@ export type Database = {
           },
         ]
       }
+      story_reports: {
+        Row: {
+          created_at: string
+          id: string
+          reason: string
+          reporter_id: string
+          story_id: string
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          reason: string
+          reporter_id: string
+          story_id: string
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          reason?: string
+          reporter_id?: string
+          story_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "story_reports_story_id_fkey"
+            columns: ["story_id"]
+            isOneToOne: false
+            referencedRelation: "stories"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
     }
     Views: {
       [_ in never]: never
@@ -200,6 +238,7 @@ export type Database = {
     Functions: {
       current_user_country: { Args: never; Returns: string }
       fulfil_payment: { Args: { _order_id: string }; Returns: boolean }
+      record_play: { Args: { _story_id: string }; Returns: undefined }
     }
     Enums: {
       [_ in never]: never

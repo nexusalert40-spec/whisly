@@ -1,6 +1,6 @@
 import { useMemo } from "react";
 import { Globe } from "lucide-react";
-import { countryOptions } from "@/lib/countries";
+import { countryFlag, countryOptions } from "@/lib/countries";
 import { cn } from "@/lib/utils";
 
 export function CountrySelect({
@@ -31,7 +31,7 @@ export function CountrySelect({
           <option value="">Select your country</option>
           {options.map((o) => (
             <option key={o.code} value={o.code}>
-              {o.name}
+              {countryFlag(o.code)} {o.name}
             </option>
           ))}
         </select>

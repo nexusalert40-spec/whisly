@@ -1,13 +1,15 @@
 import { supabase } from "@/integrations/supabase/client";
 import type { FeedStory } from "@/components/whisly/StoryCard";
 
-export type Category = "all" | "love" | "life" | "other";
+export const CATEGORIES = ["love", "life", "friendship", "negative", "freedom", "family", "other"] as const;
+export type StoryCategory = (typeof CATEGORIES)[number];
+export type Category = "all" | StoryCategory;
 
 /** Load stories (by country or by author) with signed audio URLs and the viewer's likes/saves. */
 export async function loadStories(opts: { country?: string; userId?: string; category: Category; viewerId: string }) {
   let q = supabase
     .from("stories")
-    .select("id, user_id, title, audio_url, category, duration_seconds, likes_count, support_amount, created_at")
+    .select("id, user_id, title, audio_url, category, duration_seconds, likes_count, plays_count, support_amount, created_at")
     .order("created_at", { ascending: false })
     .limit(50);
   if (opts.country) q = q.eq("country", opts.country);
@@ -54,4 +56,14 @@ export async function deleteStory(id: string) {
   if (error) throw error;
   const path = data?.[0]?.audio_url;
   if (path) await supabase.storage.from("audio").remove([path]);
+}
+
+/** Count a play (server checks the viewer may see the story). */
+export async function recordPlay(id: string) {
+  await supabase.rpc("record_play", { _story_id: id });
+}
+
+export async function reportStory(storyId: string, reporterId: string, reason: string) {
+  const { error } = await supabase.from("story_reports").insert({ story_id: storyId, reporter_id: reporterId, reason });
+  if (error && error.code !== "23505") throw error;
 }

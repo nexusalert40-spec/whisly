@@ -1,3 +1,5 @@
+import { useI18n } from "@/lib/i18n";
+import { CATEGORIES } from "@/lib/stories";
 import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
 import { useQueryClient } from "@tanstack/react-query";
 import { useEffect, useRef, useState } from "react";
@@ -23,7 +25,7 @@ export const Route = createFileRoute("/_authenticated/record")({
 });
 
 type Phase = "idle" | "recording" | "recorded";
-const CATS = ["love", "life", "other"] as const;
+const CATS = CATEGORIES;
 const LEFT = [0.25, 0.45, 0.7, 1, 0.7, 0.45];
 
 function pickMime() {
@@ -33,6 +35,7 @@ function pickMime() {
 
 function RecordPage() {
   const { data: profile } = useProfile();
+  const { t } = useI18n();
   const navigate = useNavigate();
   const qc = useQueryClient();
   const [title, setTitle] = useState("");
@@ -172,17 +175,17 @@ function RecordPage() {
         />
       </label>
 
-      <div className="mt-4 flex justify-center gap-2">
+      <div className="mt-4 flex flex-wrap justify-center gap-2">
         {CATS.map((c) => (
           <button
             key={c}
             onClick={() => setCategory(c)}
             className={cn(
-              "rounded-full px-5 py-2 text-sm font-medium capitalize",
+              "rounded-full px-4 py-2 text-sm font-medium transition hover:-translate-y-0.5",
               category === c ? "bg-primary text-primary-foreground" : "bg-secondary text-foreground",
             )}
           >
-            {c}
+            {t(c)}
           </button>
         ))}
       </div>
