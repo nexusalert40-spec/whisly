@@ -1,0 +1,645 @@
+{
+  "meta": {
+    "name": "Whisly",
+    "package": "@ws-df3b7922922c396ba326/b44532a3-67c4-449f-8613-3f6b7bfbe43a",
+    "version": "1.0.0",
+    "framework": "react",
+    "css_framework": "tailwind",
+    "starter_template": "custom_design_system_tailwind",
+    "theme_files": [
+      "src/styles.css"
+    ],
+    "source_type": "local",
+    "source_manifest": {
+      "#enrichment": "056e3805ca6e3c8f071f94e780d2a1453f81c695da12d8a651ad9ecef12f3f44",
+      ".gitignore": "6d9e901a692b46a83707c245fb03bc91",
+      ".lovable/plan/whisly-build-plan-2026-10-30.md": "d1d453379457dda735dec2fc1b36279c",
+      ".lovable/project.json": "ad60a410ef7fc7b7dc703f91d5be753a",
+      ".prettierignore": "7279a476f196a2da5f7edd18db568dc6",
+      ".prettierrc": "185ef0234746ab738ac1ab6cec5e2bd9",
+      "AGENTS.md": "fef150e14911961c465467adbe06c7e1",
+      "README.md": "15ccc2c959c0bff2136261ce044c418f",
+      "bunfig.toml": "44f440fc23b426e3176ee72e92f8f9f0",
+      "components.json": "30d3d035361ce807021f5c54620962e9",
+      "drizzle.config.ts": "c2b6029fa56b49433380b7263b06e3f7",
+      "drizzle/migrations/0000_whisly_schema.sql": "a71be085fb2cd1e39fbec9b5565aa56d",
+      "drizzle/migrations/0001_audio_storage_policies.sql": "52275ba5cf15f8099024d957800f6c89",
+      "drizzle/migrations/0002_scope_story_and_audio_reads.sql": "39f2503e7e4fd16dbbfb9f084e8525d9",
+      "drizzle/migrations/0003_phase2_categories_credits_reports.sql": "06dc5a5a6de90e60ee69240a708b91f9",
+      "drizzle/migrations/0004_bind_audio_read_access_to_viewer.sql": "d339e73d20f8dfacbc8df557894711d1",
+      "drizzle/migrations/0005_messaging_notifications_credits_crypto.sql": "53c7edc1da0f282070f78df8a0d94be9",
+      "drizzle/migrations/meta/0000_snapshot.json": "5040c2062ff3d08dcc3cefed45220a3c",
+      "drizzle/migrations/meta/0001_snapshot.json": "2cc1058235b8aec312992f9b8bb0545e",
+      "drizzle/migrations/meta/0002_snapshot.json": "1206ead16178d6dbe985d0021b0f565d",
+      "drizzle/migrations/meta/0003_snapshot.json": "37187a3b51bdfd98439d73e50734924d",
+      "drizzle/migrations/meta/0004_snapshot.json": "0254a442bd3a29110d28eeb6a0f9fbfe",
+      "drizzle/migrations/meta/0005_snapshot.json": "3c457f0aa12b40d3a258a4a2bc60c41d",
+      "drizzle/migrations/meta/_journal.json": "255b6d1e9899ca5d2fcac73b23db4ccc",
+      "drizzle/schema.ts": "a60267d05d7dd11572f02686241f37c6",
+      "eslint.config.js": "345bdd57e188e0e4525edcd00e5003f5",
+      "package.json": "4b52b6ff03d1df943e8e9326538745e2",
+      "public/favicon.ico": "9f504444f85a5af2eef9264b02ae40be",
+      "public/robots.txt": "f9dff89adf98833e676de2205921996a",
+      "roadmap.md": "56339b970432b8d5df0c13b34cba4a82",
+      "src/components/ui/accordion.tsx": "55f9dda62b4e3913c9b23e5015a86aef",
+      "src/components/ui/alert-dialog.tsx": "96350e949e9b7b674545430a410ab89c",
+      "src/components/ui/alert.tsx": "f993d7e96b1e25ce50e68ed97e11d2a8",
+      "src/components/ui/aspect-ratio.tsx": "c5c364545e1b25a94e9e752cd67ad048",
+      "src/components/ui/avatar.tsx": "72989cd32f72c4122802540ef32525a5",
+      "src/components/ui/badge.tsx": "81cade001fc4260f9943e18dcd79449b",
+      "src/components/ui/breadcrumb.tsx": "bb9ac254f12662b20d5d50b84308bf3a",
+      "src/components/ui/button.tsx": "7d07d520f486b12bd47373d694ecd2ee",
+      "src/components/ui/calendar.tsx": "d849cc610e2683271f3f1c47d093cf30",
+      "src/components/ui/card.tsx": "d6c48ea36221b9cdc3576d305d12d5d5",
+      "src/components/ui/carousel.tsx": "e324c68ae00cd5aed49317638abd429a",
+      "src/components/ui/chart.tsx": "6a3baf94f2e89f1f97d4d7a28f3622d2",
+      "src/components/ui/checkbox.tsx": "f78aac270ca482c8c2cb907ef6260462",
+      "src/components/ui/collapsible.tsx": "767631bbc344945c236f185f4078d71d",
+      "src/components/ui/command.tsx": "014782599cc838b021ec68b07ad4ea02",
+      "src/components/ui/context-menu.tsx": "3ba8244ea23df34a1dba92f3a1230dad",
+      "src/components/ui/dialog.tsx": "ef4fe8e7de8675730afe3d633b260e09",
+      "src/components/ui/drawer.tsx": "8be333e8fd8e42576b1b5f72f07f4337",
+      "src/components/ui/dropdown-menu.tsx": "28d6e98d3c7811fc0514bfa69416f087",
+      "src/components/ui/form.tsx": "1b0aa6302b9017ea2a1307c22a1d2983",
+      "src/components/ui/hover-card.tsx": "1442794c5ca2a78d69e4e613b315ed3d",
+      "src/components/ui/input-otp.tsx": "65625f2f1c4d731a760aeed7b54459d1",
+      "src/components/ui/input.tsx": "1d4cc52a4cd8afb3e18e45bda942bb8a",
+      "src/components/ui/label.tsx": "7e35df4ca8edd0835efd97ca7937ef92",
+      "src/components/ui/menubar.tsx": "3c4121a1e78d3f424a7295381a8997d3",
+      "src/components/ui/navigation-menu.tsx": "e85351147a02b29577ff83d188b63c24",
+      "src/components/ui/pagination.tsx": "fac6cdbb4bbf78b273d85cd36d6cbb49",
+      "src/components/ui/popover.tsx": "f18aa1da2144f25ee60795c539c51bcd",
+      "src/components/ui/progress.tsx": "55c462e5c9dd678dcf2c0c510b014ac4",
+      "src/components/ui/radio-group.tsx": "0e1ace237a5da3197e3eb1e6683faba9",
+      "src/components/ui/resizable.tsx": "d9fcb9203c749fcab4e125a99bb12a86",
+      "src/components/ui/scroll-area.tsx": "87b65d3eb26f2b02ff35a7acea585ba5",
+      "src/components/ui/select.tsx": "31ea1bbd6671833b010b2e852c8a55d0",
+      "src/components/ui/separator.tsx": "433d163c4ffa00b59398a0c293198b5e",
+      "src/components/ui/sheet.tsx": "0221fbf97b69611b47fcbc10bb27669a",
+      "src/components/ui/sidebar.tsx": "83c1623eb50ebc370d7b1b84a542e369",
+      "src/components/ui/skeleton.tsx": "41b182e6e2fc3805960d41e767d4a972",
+      "src/components/ui/slider.tsx": "4752f1bfa26426988d325599e01c335b",
+      "src/components/ui/sonner.tsx": "97f59f60be3413196d095fcbf7383216",
+      "src/components/ui/switch.tsx": "82f5d8b0c59bb7ff305caa9f502e79ff",
+      "src/components/ui/table.tsx": "7cc889989d53894b659903c73aded96e",
+      "src/components/ui/tabs.tsx": "56e725558c2ce72c18243bf51717f385",
+      "src/components/ui/textarea.tsx": "c7aad96fb9545210d53135a96c76ed6b",
+      "src/components/ui/toggle-group.tsx": "ac26383acf721d116ca8e3ab5c5355d5",
+      "src/components/ui/toggle.tsx": "ee8c5adac74e7242b85b544db1a8fbad",
+      "src/components/ui/tooltip.tsx": "67d71db5a1ab935695d1def497f5b8a6",
+      "src/components/whisly/AdSlot.tsx": "6d2c9a79f17302894a51f01d15b39568",
+      "src/components/whisly/AudioPlayer.tsx": "0ba46bd9893d0413fd6342977775af71",
+      "src/components/whisly/BottomNav.tsx": "32ba67ebec546349ce2bb1722cd4d521",
+      "src/components/whisly/CountrySelect.tsx": "c250e801fc19140ebe6baa048dc374c4",
+      "src/components/whisly/GooglePayButton.tsx": "9f46ec272a917e50adff5b381ab1d2d9",
+      "src/components/whisly/LanguageSwitcher.tsx": "6686ea97fe8ebcb5fbcc29f44f2eaf5a",
+      "src/components/whisly/Logo.tsx": "dae0377fb33c443bae4073c1e93cfbc6",
+      "src/components/whisly/PayPalCheckout.tsx": "510a4a11a817c0fc17d96b337081efd7",
+      "src/components/whisly/StoryCard.tsx": "bebdd8cc7ea3e7cd09a01cdfb09f77b9",
+      "src/components/whisly/SupportDialog.tsx": "2436f3a87b217f6a6d49f7ebef32ae8f",
+      "src/components/whisly/fields.tsx": "4847e34d6ba1b9f1f4d991bf8027eb96",
+      "src/hooks/use-mobile.tsx": "c0a0bdd4638c391a1dd06ac82074e60b",
+      "src/hooks/use-profile.ts": "e6029781b0d6f2c4b0c1171c7c3383cd",
+      "src/integrations/lovable/index.ts": "e9cf6e6968dd0392b2222ee0745ecece",
+      "src/integrations/supabase/auth-attacher.ts": "dad043cda134d909e52de0346c16625e",
+      "src/integrations/supabase/auth-middleware.ts": "eabaf8c8ba32205717921ce5f255185e",
+      "src/integrations/supabase/client.server.ts": "23f838ab7633e0a97e695f3c500d91aa",
+      "src/integrations/supabase/client.ts": "2e72a87ed578e0084537f2646f2d7e6a",
+      "src/integrations/supabase/cron-auth.ts": "6c04781ff98ada5977945fae55d39385",
+      "src/integrations/supabase/previewAuthStorage.ts": "315e4ae3473d92766e0d6d4d83945aef",
+      "src/integrations/supabase/types.ts": "b5e3b37934b550420636d3c18ee97b50",
+      "src/lib/auth.ts": "b831b67a4baa50ff6022a263fd53c602",
+      "src/lib/countries.ts": "f8c1adc01ab348813569dde92e2e854e",
+      "src/lib/country-language.test.ts": "0c4ef52ae47b28f9d2729fd8df06ee96",
+      "src/lib/country-language.ts": "faa68a4ab93a58766e1c79484376f761",
+      "src/lib/error-capture.ts": "f630d9686a9a989170f22eff4de7b30d",
+      "src/lib/error-page.ts": "8da0ddd7569bac2676b9a5c8edff8a36",
+      "src/lib/i18n.tsx": "4cf8a232a0bb79e54f6179b17d8f4ac0",
+      "src/lib/legal.test.ts": "9536c05c9a75bc8676e74a117258606a",
+      "src/lib/legal.ts": "baab7c393023a3464948b413a512c1e5",
+      "src/lib/lovable-error-reporting.ts": "920280997099588d609de792663bcbf0",
+      "src/lib/paypal.functions.ts": "aeb30041b8345423a030ca7bf38c58ce",
+      "src/lib/paypal.server.ts": "001769bf04f786f21182fc4f75b7fe62",
+      "src/lib/plans.test.ts": "fcaa762acd063d0cead16124a839376f",
+      "src/lib/plans.ts": "f73735b4fbad4c961a48619ef9408fa9",
+      "src/lib/social.ts": "81db009728e0b6dde84cacfede88cbfa",
+      "src/lib/stories.ts": "f04211770d30216a46f007f9889571a1",
+      "src/lib/utils.ts": "d9837f38cc05303254571985e3164050",
+      "src/routeTree.gen.ts": "734c05c4fc9fc4c905ae482006afb82b",
+      "src/router.tsx": "8f905e713b0eba7fa8148b7995a708c9",
+      "src/routes/README.md": "b3a2f259b66fd1a11f54b6d5ac83bf57",
+      "src/routes/__root.tsx": "e69a9bb30d75c88da4d4fe7e565ef520",
+      "src/routes/_authenticated/admin.tsx": "f1ffeb1761346f9a46d3a8ebdb8ac0b1",
+      "src/routes/_authenticated/credits.tsx": "1a83aab8f7949dc1ee1745d786fb7850",
+      "src/routes/_authenticated/feed.tsx": "ec41fa8cb56e13f1c19e0c72b894f629",
+      "src/routes/_authenticated/messages.tsx": "c44c97ac9060baa495f7767fbcc06bad",
+      "src/routes/_authenticated/notifications.tsx": "e0600b0adb7918a5ac6b1a0a4bc36686",
+      "src/routes/_authenticated/onboarding.tsx": "aab400313cf91ca7f823e7fa7e7a16cf",
+      "src/routes/_authenticated/payment-return.tsx": "47b8196ba4d50e2b3c0f46267f5865ed",
+      "src/routes/_authenticated/profile.tsx": "e5e46eac614013ca7b9506fea9d02116",
+      "src/routes/_authenticated/record.tsx": "6001c661da4ce771b27487263e38590c",
+      "src/routes/_authenticated/route.tsx": "317d80d36e4a6056596e0ebb0320165a",
+      "src/routes/_authenticated/upgrade.tsx": "ff97a2abd78f48ed24137494ae646aef",
+      "src/routes/api/public/paypal-webhook.ts": "dab960555d9fd53ef6fd633ab708555d",
+      "src/routes/index.tsx": "26a3e2278300adaf4faa0df68a761f8b",
+      "src/routes/legal.tsx": "8e63b39f3a1f4e6bfb991a6bc927dd4c",
+      "src/routes/login.tsx": "1543c1544330b56662dc50420c1c2c2c",
+      "src/routes/reset-password.tsx": "a8e7cff2de871f8d23ee8db9d32564bc",
+      "src/routes/signup.tsx": "7e432c6d2b8c8d319ec42f6977b349d0",
+      "src/server.ts": "c7bbc49bb70e318af618d92775ee0f27",
+      "src/start.ts": "d77c1c12904be5077c6955d9b30071af",
+      "src/styles.css": "424c21e1bb455b59fae800c047d8bb37",
+      "src/test/app-routing.test.tsx": "dda0393c89450a1e5b7874b424dca80d",
+      "src/test/setup.ts": "ef5807c07db57482ab718e40246688a2",
+      "supabase/config.toml": "14b2c066e11d65459f7bdfc0fb14fd93",
+      "tsconfig.json": "3d34aff71739a382bec105bad1c6948f",
+      "vite.config.ts": "d67e8217e5f31b87c276b6357c9aedcf",
+      "vitest.config.ts": "cdf9aff9538e6bc3eb92842264b030a9"
+    },
+    "pipeline_version": 8
+  },
+  "tokens": {
+    "color": [
+      {
+        "name": "--background",
+        "raw": "oklch(0.977 0.01 295)",
+        "source": "src/styles.css"
+      },
+      {
+        "name": "--foreground",
+        "raw": "oklch(0.22 0.09 275)",
+        "source": "src/styles.css"
+      },
+      {
+        "name": "--card",
+        "raw": "oklch(1 0 0)",
+        "source": "src/styles.css"
+      },
+      {
+        "name": "--card-foreground",
+        "raw": "oklch(0.22 0.09 275)",
+        "source": "src/styles.css"
+      },
+      {
+        "name": "--popover",
+        "raw": "oklch(1 0 0)",
+        "source": "src/styles.css"
+      },
+      {
+        "name": "--popover-foreground",
+        "raw": "oklch(0.22 0.09 275)",
+        "source": "src/styles.css"
+      },
+      {
+        "name": "--primary",
+        "raw": "oklch(0.53 0.25 285)",
+        "source": "src/styles.css"
+      },
+      {
+        "name": "--primary-foreground",
+        "raw": "oklch(0.99 0.005 295)",
+        "source": "src/styles.css"
+      },
+      {
+        "name": "--secondary",
+        "raw": "oklch(0.95 0.025 295)",
+        "source": "src/styles.css"
+      },
+      {
+        "name": "--secondary-foreground",
+        "raw": "oklch(0.42 0.2 285)",
+        "source": "src/styles.css"
+      },
+      {
+        "name": "--muted",
+        "raw": "oklch(0.955 0.015 295)",
+        "source": "src/styles.css"
+      },
+      {
+        "name": "--muted-foreground",
+        "raw": "oklch(0.55 0.06 285)",
+        "source": "src/styles.css"
+      },
+      {
+        "name": "--accent",
+        "raw": "oklch(0.93 0.04 295)",
+        "source": "src/styles.css"
+      },
+      {
+        "name": "--accent-foreground",
+        "raw": "oklch(0.42 0.2 285)",
+        "source": "src/styles.css"
+      },
+      {
+        "name": "--destructive",
+        "raw": "oklch(0.6 0.22 22)",
+        "source": "src/styles.css"
+      },
+      {
+        "name": "--destructive-foreground",
+        "raw": "oklch(0.99 0 0)",
+        "source": "src/styles.css"
+      },
+      {
+        "name": "--border",
+        "raw": "oklch(0.9 0.03 295)",
+        "source": "src/styles.css"
+      },
+      {
+        "name": "--input",
+        "raw": "oklch(0.88 0.04 295)",
+        "source": "src/styles.css"
+      },
+      {
+        "name": "--ring",
+        "raw": "oklch(0.6 0.2 290)",
+        "source": "src/styles.css"
+      },
+      {
+        "name": "--soft",
+        "raw": "oklch(0.945 0.025 295)",
+        "source": "src/styles.css"
+      },
+      {
+        "name": "--wave",
+        "raw": "oklch(0.78 0.11 295)",
+        "source": "src/styles.css"
+      },
+      {
+        "name": "--brand-pink",
+        "raw": "oklch(0.65 0.27 355)",
+        "source": "src/styles.css"
+      },
+      {
+        "name": "--brand-violet",
+        "raw": "oklch(0.58 0.27 300)",
+        "source": "src/styles.css"
+      },
+      {
+        "name": "--brand-blue",
+        "raw": "oklch(0.6 0.2 262)",
+        "source": "src/styles.css"
+      },
+      {
+        "name": "--chart-1",
+        "raw": "oklch(0.646 0.222 41.116)",
+        "source": "src/styles.css"
+      },
+      {
+        "name": "--chart-2",
+        "raw": "oklch(0.6 0.118 184.704)",
+        "source": "src/styles.css"
+      },
+      {
+        "name": "--chart-3",
+        "raw": "oklch(0.398 0.07 227.392)",
+        "source": "src/styles.css"
+      },
+      {
+        "name": "--chart-4",
+        "raw": "oklch(0.828 0.189 84.429)",
+        "source": "src/styles.css"
+      },
+      {
+        "name": "--chart-5",
+        "raw": "oklch(0.769 0.188 70.08)",
+        "source": "src/styles.css"
+      },
+      {
+        "name": "--sidebar",
+        "raw": "oklch(0.984 0.003 247.858)",
+        "source": "src/styles.css"
+      },
+      {
+        "name": "--sidebar-foreground",
+        "raw": "oklch(0.129 0.042 264.695)",
+        "source": "src/styles.css"
+      },
+      {
+        "name": "--sidebar-primary",
+        "raw": "oklch(0.208 0.042 265.755)",
+        "source": "src/styles.css"
+      },
+      {
+        "name": "--sidebar-primary-foreground",
+        "raw": "oklch(0.984 0.003 247.858)",
+        "source": "src/styles.css"
+      },
+      {
+        "name": "--sidebar-accent",
+        "raw": "oklch(0.968 0.007 247.896)",
+        "source": "src/styles.css"
+      },
+      {
+        "name": "--sidebar-accent-foreground",
+        "raw": "oklch(0.208 0.042 265.755)",
+        "source": "src/styles.css"
+      },
+      {
+        "name": "--sidebar-border",
+        "raw": "oklch(0.929 0.013 255.508)",
+        "source": "src/styles.css"
+      },
+      {
+        "name": "--sidebar-ring",
+        "raw": "oklch(0.704 0.04 256.788)",
+        "source": "src/styles.css"
+      }
+    ],
+    "typography": [
+      {
+        "name": "--font-sans",
+        "raw": "\"Outfit\", ui-sans-serif, system-ui, sans-serif",
+        "source": "src/styles.css"
+      }
+    ],
+    "radius": [
+      {
+        "name": "--radius-sm",
+        "raw": "calc(var(--radius) - 4px)",
+        "source": "src/styles.css"
+      },
+      {
+        "name": "--radius-md",
+        "raw": "calc(var(--radius) - 2px)",
+        "source": "src/styles.css"
+      },
+      {
+        "name": "--radius-xl",
+        "raw": "calc(var(--radius) + 4px)",
+        "source": "src/styles.css"
+      },
+      {
+        "name": "--radius-2xl",
+        "raw": "calc(var(--radius) + 8px)",
+        "source": "src/styles.css"
+      },
+      {
+        "name": "--radius-3xl",
+        "raw": "calc(var(--radius) + 12px)",
+        "source": "src/styles.css"
+      },
+      {
+        "name": "--radius-4xl",
+        "raw": "calc(var(--radius) + 16px)",
+        "source": "src/styles.css"
+      },
+      {
+        "name": "--radius",
+        "raw": "1rem",
+        "source": "src/styles.css"
+      }
+    ],
+    "shadow": [
+      {
+        "name": "--shadow-soft",
+        "raw": "0 12px 40px -18px oklch(0.45 0.2 290 / 0.35)",
+        "source": "src/styles.css"
+      },
+      {
+        "name": "--shadow-glow",
+        "raw": "0 14px 36px -10px oklch(0.55 0.26 300 / 0.55)",
+        "source": "src/styles.css"
+      }
+    ],
+    "other": [
+      {
+        "name": "--gradient-brand",
+        "raw": "linear-gradient(100deg, var(--brand-pink), var(--brand-violet) 55%, var(--brand-blue))",
+        "source": "src/styles.css"
+      },
+      {
+        "name": "--gradient-cta",
+        "raw": "linear-gradient(90deg, oklch(0.5 0.24 275), oklch(0.62 0.25 305))",
+        "source": "src/styles.css"
+      },
+      {
+        "name": "--gradient-orb",
+        "raw": "radial-gradient(circle at 25% 25%, var(--brand-pink), var(--brand-violet) 55%, var(--brand-blue))",
+        "source": "src/styles.css"
+      },
+      {
+        "name": "--gradient-plus",
+        "raw": "linear-gradient(135deg, oklch(0.65 0.24 315), oklch(0.53 0.25 285))",
+        "source": "src/styles.css"
+      }
+    ]
+  },
+  "components": [
+    {
+      "name": "Dialog",
+      "file": "src/components/ui/dialog",
+      "import_path": ""
+    },
+    {
+      "name": "DialogPortal",
+      "file": "src/components/ui/dialog",
+      "import_path": ""
+    },
+    {
+      "name": "DialogOverlay",
+      "file": "src/components/ui/dialog",
+      "import_path": ""
+    },
+    {
+      "name": "DialogTrigger",
+      "file": "src/components/ui/dialog",
+      "import_path": ""
+    },
+    {
+      "name": "DialogClose",
+      "file": "src/components/ui/dialog",
+      "import_path": ""
+    },
+    {
+      "name": "DialogContent",
+      "file": "src/components/ui/dialog",
+      "import_path": ""
+    },
+    {
+      "name": "DialogHeader",
+      "file": "src/components/ui/dialog",
+      "import_path": ""
+    },
+    {
+      "name": "DialogFooter",
+      "file": "src/components/ui/dialog",
+      "import_path": ""
+    },
+    {
+      "name": "DialogTitle",
+      "file": "src/components/ui/dialog",
+      "import_path": ""
+    },
+    {
+      "name": "DialogDescription",
+      "file": "src/components/ui/dialog",
+      "import_path": ""
+    },
+    {
+      "name": "DropdownMenu",
+      "file": "src/components/ui/dropdown-menu",
+      "import_path": ""
+    },
+    {
+      "name": "DropdownMenuTrigger",
+      "file": "src/components/ui/dropdown-menu",
+      "import_path": ""
+    },
+    {
+      "name": "DropdownMenuContent",
+      "file": "src/components/ui/dropdown-menu",
+      "import_path": ""
+    },
+    {
+      "name": "DropdownMenuItem",
+      "file": "src/components/ui/dropdown-menu",
+      "import_path": ""
+    },
+    {
+      "name": "DropdownMenuCheckboxItem",
+      "file": "src/components/ui/dropdown-menu",
+      "import_path": ""
+    },
+    {
+      "name": "DropdownMenuRadioItem",
+      "file": "src/components/ui/dropdown-menu",
+      "import_path": ""
+    },
+    {
+      "name": "DropdownMenuLabel",
+      "file": "src/components/ui/dropdown-menu",
+      "import_path": ""
+    },
+    {
+      "name": "DropdownMenuSeparator",
+      "file": "src/components/ui/dropdown-menu",
+      "import_path": ""
+    },
+    {
+      "name": "DropdownMenuShortcut",
+      "file": "src/components/ui/dropdown-menu",
+      "import_path": ""
+    },
+    {
+      "name": "DropdownMenuGroup",
+      "file": "src/components/ui/dropdown-menu",
+      "import_path": ""
+    },
+    {
+      "name": "DropdownMenuPortal",
+      "file": "src/components/ui/dropdown-menu",
+      "import_path": ""
+    },
+    {
+      "name": "DropdownMenuSub",
+      "file": "src/components/ui/dropdown-menu",
+      "import_path": ""
+    },
+    {
+      "name": "DropdownMenuSubContent",
+      "file": "src/components/ui/dropdown-menu",
+      "import_path": ""
+    },
+    {
+      "name": "DropdownMenuSubTrigger",
+      "file": "src/components/ui/dropdown-menu",
+      "import_path": ""
+    },
+    {
+      "name": "DropdownMenuRadioGroup",
+      "file": "src/components/ui/dropdown-menu",
+      "import_path": ""
+    },
+    {
+      "name": "AdSlot",
+      "file": "src/components/whisly/AdSlot",
+      "import_path": ""
+    },
+    {
+      "name": "AudioPlayer",
+      "file": "src/components/whisly/AudioPlayer",
+      "import_path": ""
+    },
+    {
+      "name": "Badge",
+      "file": "src/components/whisly/BottomNav",
+      "import_path": ""
+    },
+    {
+      "name": "BottomNav",
+      "file": "src/components/whisly/BottomNav",
+      "import_path": ""
+    },
+    {
+      "name": "CountrySelect",
+      "file": "src/components/whisly/CountrySelect",
+      "import_path": ""
+    },
+    {
+      "name": "GooglePayButton",
+      "file": "src/components/whisly/GooglePayButton",
+      "import_path": ""
+    },
+    {
+      "name": "LanguageSwitcher",
+      "file": "src/components/whisly/LanguageSwitcher",
+      "import_path": ""
+    },
+    {
+      "name": "LogoMark",
+      "file": "src/components/whisly/Logo",
+      "import_path": ""
+    },
+    {
+      "name": "Logo",
+      "file": "src/components/whisly/Logo",
+      "import_path": ""
+    },
+    {
+      "name": "WaveFooter",
+      "file": "src/components/whisly/Logo",
+      "import_path": ""
+    },
+    {
+      "name": "PayPalCheckout",
+      "file": "src/components/whisly/PayPalCheckout",
+      "import_path": ""
+    },
+    {
+      "name": "StoryCard",
+      "file": "src/components/whisly/StoryCard",
+      "import_path": ""
+    },
+    {
+      "name": "SupportDialog",
+      "file": "src/components/whisly/SupportDialog",
+      "import_path": ""
+    },
+    {
+      "name": "Field",
+      "file": "src/components/whisly/fields",
+      "import_path": ""
+    },
+    {
+      "name": "GradientButton",
+      "file": "src/components/whisly/fields",
+      "import_path": ""
+    },
+    {
+      "name": "GoogleIcon",
+      "file": "src/components/whisly/fields",
+      "import_path": ""
+    },
+    {
+      "name": "Constants",
+      "file": "src/integrations/supabase/types",
+      "import_path": ""
+    },
+    {
+      "name": "I18nProvider",
+      "file": "src/lib/i18n",
+      "import_path": ""
+    }
+  ]
+}
