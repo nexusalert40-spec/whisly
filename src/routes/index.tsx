@@ -6,6 +6,7 @@ import { LogoMark } from "@/components/whisly/Logo";
 import { GoogleIcon } from "@/components/whisly/fields";
 import { signInWithGoogle } from "@/lib/auth";
 import { supabase } from "@/integrations/supabase/client";
+import { useI18n } from "@/lib/i18n";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -20,6 +21,7 @@ export const Route = createFileRoute("/")({
 });
 
 function Welcome() {
+  const { t } = useI18n();
   const navigate = useNavigate();
   const [busy, setBusy] = useState(false);
 
@@ -83,8 +85,8 @@ function Welcome() {
       </p>
 
       <p className="mt-auto pt-12 text-center text-xs text-muted-foreground">
-        By continuing, you agree to our{" "}
-        <span className="font-semibold text-primary">Terms &amp; Privacy Policy</span>
+        {t("legalFooterPrefix")}{" "}
+        <Link to="/legal" className="font-semibold text-primary underline-offset-4 hover:underline">{t("legalTitle")}</Link>
       </p>
     </main>
   );
