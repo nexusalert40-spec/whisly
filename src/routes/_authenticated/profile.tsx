@@ -104,19 +104,19 @@ function Profile() {
         </section>
 
         <section className="flex min-w-0 flex-col justify-between gap-4 rounded-3xl bg-card p-4 shadow-soft sm:p-5">
-          <div className="grid grid-cols-[minmax(0,1fr)_auto] items-start gap-3">
+          <div className="flex flex-wrap items-start justify-between gap-x-4 gap-y-2">
             <div className="min-w-0">
               <p className="text-sm text-muted-foreground">{t("credits")}</p>
               <p className="flex min-w-0 items-center gap-2 text-2xl font-bold tabular-nums sm:text-3xl">
                 <Coins className="size-6 shrink-0 text-brand-pink sm:size-7" /> {profile?.credits ?? 0}
               </p>
             </div>
-            <div className="max-w-[11rem] text-end text-sm">
+            <div className="text-end text-sm [overflow-wrap:normal] [word-break:normal]">
               <p className="flex items-center justify-end gap-1 font-semibold">
                 <Crown className="size-4 shrink-0 text-primary" />
                 {profile?.account_level === "premium" && active ? t("premium") : t("free")}
               </p>
-              <p className="mt-0.5 text-xs leading-snug text-muted-foreground sm:text-sm">{active ? `${t("activeUntil")} ${expiry!.toLocaleDateString()}` : t("noMembership")}</p>
+              <p className="mt-0.5 whitespace-nowrap text-xs leading-snug text-muted-foreground sm:text-sm">{active ? `${t("activeUntil")} ${expiry!.toLocaleDateString()}` : t("noMembership")}</p>
             </div>
           </div>
           <div className="grid grid-cols-2 gap-2">
