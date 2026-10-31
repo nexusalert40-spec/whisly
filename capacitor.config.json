@@ -1,0 +1,11 @@
+{
+  "appId": "app.whisly.mobile",
+  "appName": "Whisly",
+  "webDir": "public",
+  "server": {
+    "url": "https://whisly.lovable.app",
+    "cleartext": false
+  },
+  "ios": { "contentInset": "never" },
+  "android": { "allowMixedContent": false }
+}
