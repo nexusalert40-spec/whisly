@@ -6,4 +6,4 @@
 - [ ] PayPal live checkout — waiting on PayPal Client ID + Secret
 - [ ] Google Pay charging — waiting on a card processor + Google merchant ID (sheet works in TEST mode)
 - [ ] First admin account — waiting on which email should be admin
-- [ ] First ad campaign — screen-focused direction and image headline approved; four square/portrait images saved pending user approval, then platform copy; account connection declined, tracking and spend approval pending
+- [ ] First ad campaign — direction, image headline and all four final images approved; platform copy next; account connection declined, tracking and spend approval pending
