@@ -200,31 +200,40 @@ export type Database = {
       profiles: {
         Row: {
           account_level: string
+          avatar_url: string | null
           country: string | null
           created_at: string
           credits: number
           email: string | null
+          first_name: string
           id: string
+          last_name: string
           name: string
           subscription_expiry_date: string | null
         }
         Insert: {
           account_level?: string
+          avatar_url?: string | null
           country?: string | null
           created_at?: string
           credits?: number
           email?: string | null
+          first_name?: string
           id: string
+          last_name?: string
           name?: string
           subscription_expiry_date?: string | null
         }
         Update: {
           account_level?: string
+          avatar_url?: string | null
           country?: string | null
           created_at?: string
           credits?: number
           email?: string | null
+          first_name?: string
           id?: string
+          last_name?: string
           name?: string
           subscription_expiry_date?: string | null
         }
@@ -381,6 +390,15 @@ export type Database = {
           _user_id: string
         }
         Returns: boolean
+      }
+      recent_activity: {
+        Args: never
+        Returns: {
+          actor: string
+          amount: number
+          at: string
+          kind: string
+        }[]
       }
       record_play: { Args: { _story_id: string }; Returns: undefined }
       review_crypto_payment: {
