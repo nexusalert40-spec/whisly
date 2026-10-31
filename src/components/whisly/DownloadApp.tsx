@@ -39,7 +39,7 @@ export function DownloadApp() {
     url ? window.open(url, "_blank", "noopener") : toast(`Whisly on ${name} is coming soon — install the web app now.`);
 
   const badge =
-    "flex h-14 flex-1 items-center gap-3 rounded-2xl bg-foreground px-4 text-start text-background transition active:scale-[0.97]";
+    "flex h-14 min-w-0 flex-1 items-center gap-2 whitespace-nowrap rounded-2xl bg-foreground px-3 text-start text-background transition active:scale-[0.97]";
 
   return (
     <section className="mt-10 rounded-4xl bg-gradient-brand p-[1.5px] shadow-glow">
@@ -48,12 +48,12 @@ export function DownloadApp() {
         <p className="mt-1 text-sm text-muted-foreground">Listen and record faster, right from your home screen.</p>
         <div className="mt-4 flex gap-3">
           <button onClick={store(APP_STORE_URL, "the App Store")} className={badge}>
-            <Apple className="size-7 shrink-0" />
-            <span className="leading-tight"><span className="block text-[10px]">Download on the</span><span className="font-semibold">App Store</span></span>
+            <Apple className="size-6 shrink-0" />
+            <span className="leading-tight"><span className="block text-[10px]">Download on the</span><span className="text-sm font-semibold">App Store</span></span>
           </button>
           <button onClick={store(PLAY_STORE_URL, "Google Play")} className={badge}>
-            <Play className="size-6 shrink-0 fill-current" />
-            <span className="leading-tight"><span className="block text-[10px] uppercase">Get it on</span><span className="font-semibold">Google Play</span></span>
+            <Play className="size-5 shrink-0 fill-current" />
+            <span className="leading-tight"><span className="block text-[10px] uppercase">Get it on</span><span className="text-sm font-semibold">Google Play</span></span>
           </button>
         </div>
         <button
