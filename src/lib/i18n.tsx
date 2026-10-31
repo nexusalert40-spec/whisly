@@ -96,7 +96,7 @@ const en = {
   reported: "Thanks — our team will review it", you: "You", anonymous: "Anonymous",
   myStories: "My stories", noMine: "You haven't published anything yet.",
   likesReceived: "Likes received", plays: "Plays", stories: "Stories",
-  editProfile: "Edit profile", firstName: "First name", lastName: "Last name", changePhoto: "Change photo", saveChanges: "Save changes", profileSaved: "Profile updated", online: "Online",
+  editProfile: "Edit profile", teaser: "Stay tuned for valuable gifts, travel prizes, and more upon the official launch!", dismiss: "Dismiss", firstName: "First name", lastName: "Last name", changePhoto: "Change photo", saveChanges: "Save changes", profileSaved: "Profile updated", online: "Online",
   credits: "Credit balance", buyCredits: "Upgrade / Buy credits", signOut: "Sign out",
   premium: "Premium", free: "Free", account: "account", activeUntil: "Active until", noMembership: "No active membership",
   filterByCategory: "Filter by category", inbox: "Inbox", noConversations: "No conversations yet", typeMessage: "Write a message…",

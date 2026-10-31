@@ -18,6 +18,7 @@ import { countryLabel } from "@/lib/countries";
 import { useI18n } from "@/lib/i18n";
 import { useAvatarUrl, useOnlineUsers } from "@/lib/avatar";
 import { LiveActivity } from "@/components/whisly/LiveActivity";
+import { TeaserCard } from "@/components/whisly/TeaserCard";
 import { deleteStory, loadStories, toggleLike, toggleSave, type Category } from "@/lib/stories";
 import { cn } from "@/lib/utils";
 
@@ -137,6 +138,8 @@ function Feed() {
           <span className="mt-3 text-2xl font-bold text-primary">{t("createVoice")}</span>
           <span className="text-muted-foreground">{t("shareStory")}</span>
         </Link>
+
+        <TeaserCard />
 
         {profile?.country && <MoodMatch country={profile.country} viewerId={profile.id} />}
 
