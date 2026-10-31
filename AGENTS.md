@@ -19,3 +19,4 @@
 - Story categories are defined once in `CATEGORIES` (`src/lib/stories.ts`) and must match the `stories_category_check` constraint.
 - Messaging and notifications use Lovable Cloud tables (`messages`, `notifications`) with realtime postgres changes via `src/lib/social.ts`; notifications are written only by DB triggers/RPCs so they can't be forged.
 - Credits move only through security-definer RPCs (`gift_credits`, `fulfil_payment`, admin-only `review_crypto_payment`); crypto purchases are manual hash submissions verified by an admin role in `user_roles`.
+- The app-shell service worker (vite-plugin-pwa, /sw.js) is registered only from `src/lib/pwa.ts`, which refuses dev/iframe/preview hosts, because a cached worker in previews serves stale code. Capacitor wraps the published URL via `capacitor.config.json` (server.url) since the app is SSR with no static build.
