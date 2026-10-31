@@ -7,6 +7,7 @@ import { GoogleIcon } from "@/components/whisly/fields";
 import { signInWithGoogle } from "@/lib/auth";
 import { supabase } from "@/integrations/supabase/client";
 import { useI18n } from "@/lib/i18n";
+import { DownloadApp } from "@/components/whisly/DownloadApp";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -51,7 +52,7 @@ function Welcome() {
   }
 
   return (
-    <main className="mx-auto flex min-h-screen max-w-md flex-col px-6 pb-8 pt-24">
+    <main className="mx-auto flex min-h-dvh max-w-md flex-col px-6 pb-[calc(2rem+env(safe-area-inset-bottom))] pt-[calc(4rem+env(safe-area-inset-top))]">
       <div className="flex flex-col items-center text-center">
         <LogoMark className="h-24" />
         <h1 className="mt-4 text-6xl font-extrabold tracking-tight text-foreground">Whisly</h1>
@@ -86,7 +87,9 @@ function Welcome() {
         </Link>
       </p>
 
-      <p className="mt-auto pt-12 text-center text-xs text-muted-foreground">
+      <DownloadApp />
+
+      <p className="mt-auto pt-10 text-center text-xs text-muted-foreground">
         {t("legalFooterPrefix")}{" "}
         <Link to="/legal" className="font-semibold text-primary underline-offset-4 hover:underline">{t("legalTitle")}</Link>
       </p>
