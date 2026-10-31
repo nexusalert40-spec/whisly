@@ -50,6 +50,13 @@
       "when": 1793475466722,
       "tag": "0006_profile_avatar_names_activity",
       "breakpoints": true
+    },
+    {
+      "idx": 7,
+      "version": "7",
+      "when": 1793475478321,
+      "tag": "0007_avatar_read",
+      "breakpoints": true
     }
   ]
 }
