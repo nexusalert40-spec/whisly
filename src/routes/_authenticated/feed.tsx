@@ -9,6 +9,7 @@ import { Logo } from "@/components/whisly/Logo";
 import { Badge, BottomNav } from "@/components/whisly/BottomNav";
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import { useUnread } from "@/lib/social";
+import { MoodMatch } from "@/components/whisly/MoodMatch";
 import { AdSlot } from "@/components/whisly/AdSlot";
 import { LanguageSwitcher } from "@/components/whisly/LanguageSwitcher";
 import { StoryCard, type FeedStory } from "@/components/whisly/StoryCard";
@@ -132,6 +133,8 @@ function Feed() {
           <span className="mt-3 text-2xl font-bold text-primary">{t("createVoice")}</span>
           <span className="text-muted-foreground">{t("shareStory")}</span>
         </Link>
+
+        {profile?.country && <MoodMatch country={profile.country} viewerId={profile.id} />}
 
         <div className="no-scrollbar -mx-4 mt-6 flex gap-2 overflow-x-auto px-4 sm:mx-0 sm:flex-wrap sm:px-0">
           {TABS.map((tb) => (

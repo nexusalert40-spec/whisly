@@ -4,7 +4,7 @@ import { Loader2, Sparkles } from "lucide-react";
 import { StoryCard, type FeedStory } from "@/components/whisly/StoryCard";
 import { useI18n } from "@/lib/i18n";
 import { recommendStoriesForMood } from "@/lib/mood.functions";
-import { loadStories } from "@/lib/stories";
+import { loadStories, toggleLike, toggleSave } from "@/lib/stories";
 
 /** "How are you feeling?" panel: AI picks stories from the listener's country. */
 export function MoodMatch({ country, viewerId }: { country: string; viewerId: string }) {
@@ -58,7 +58,15 @@ export function MoodMatch({ country, viewerId }: { country: string; viewerId: st
       {results && results.length > 0 && (
         <div className="mt-4 space-y-4">
           {results.map((s) => (
-            <StoryCard key={s.id} story={s} isOwner={s.user_id === viewerId} viewerId={viewerId} onLike={() => {}} onSave={() => {}} onDelete={() => {}} />
+            <StoryCard key={s.id} story={s} isOwner={s.user_id === viewerId} viewerId={viewerId} onLike={() => {
+                toggleLike(s, viewerId).catch(() => {});
+                setResults((rs) => rs?.map((x) => (x.id === s.id ? { ...x, liked: !x.liked, likes_count: x.likes_count + (x.liked ? -1 : 1) } : x)) ?? null);
+              }}
+              onSave={() => {
+                toggleSave(s, viewerId).catch(() => {});
+                setResults((rs) => rs?.map((x) => (x.id === s.id ? { ...x, saved: !x.saved } : x)) ?? null);
+              }}
+            />
           ))}
         </div>
       )}
