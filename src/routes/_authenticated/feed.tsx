@@ -16,6 +16,8 @@ import { StoryCard, type FeedStory } from "@/components/whisly/StoryCard";
 import { useProfile } from "@/hooks/use-profile";
 import { countryLabel } from "@/lib/countries";
 import { useI18n } from "@/lib/i18n";
+import { useAvatarUrl, useOnlineUsers } from "@/lib/avatar";
+import { LiveActivity } from "@/components/whisly/LiveActivity";
 import { deleteStory, loadStories, toggleLike, toggleSave, type Category } from "@/lib/stories";
 import { cn } from "@/lib/utils";
 
@@ -50,6 +52,8 @@ function Feed() {
   const [tab, setTab] = useState<Category>("all");
   const [searchOpen, setSearchOpen] = useState(false);
   const unread = useUnread(profile?.id);
+  const online = useOnlineUsers(profile?.country, profile?.id);
+  const myAvatar = useAvatarUrl(profile?.avatar_url);
   const qc = useQueryClient();
   const key = ["feed", profile?.country, tab];
 
@@ -175,6 +179,8 @@ function Feed() {
               <StoryCard
                 story={s}
                 isOwner={s.user_id === profile?.id}
+                online={online.has(s.user_id)}
+                avatarSrc={s.user_id === profile?.id ? myAvatar : null}
                 viewerId={profile?.id}
                 onLike={() => like.mutate(s)}
                 onSave={() => save.mutate(s)}
@@ -214,6 +220,7 @@ function Feed() {
           </div>
         </DialogContent>
       </Dialog>
+      <LiveActivity />
       <BottomNav active="home" />
     </div>
   );

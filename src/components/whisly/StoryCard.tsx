@@ -42,7 +42,11 @@ export function StoryCard({
   onLike,
   onSave,
   onDelete,
+  online,
+  avatarSrc,
 }: {
+  online?: boolean;
+  avatarSrc?: string | null;
   story: FeedStory;
   isOwner: boolean;
   viewerId?: string | undefined;
@@ -89,8 +93,15 @@ export function StoryCard({
   return (
     <article className="rounded-3xl bg-card p-4 shadow-soft transition hover:-translate-y-0.5 sm:p-5">
       <header className="flex items-center gap-3">
-        <div className="flex size-12 shrink-0 items-center justify-center rounded-full bg-accent text-secondary-foreground">
-          <UserRound className="size-7" fill="currentColor" />
+        <div className="relative flex size-12 shrink-0 items-center justify-center rounded-full bg-accent text-secondary-foreground">
+          {avatarSrc ? (
+            <img src={avatarSrc} alt="" className="size-12 rounded-full object-cover" />
+          ) : (
+            <UserRound className="size-7" fill="currentColor" />
+          )}
+          {online && (
+            <span title={t("online")} className="animate-online absolute bottom-0 end-0 size-3.5 rounded-full border-2 border-card bg-online" />
+          )}
         </div>
         <div className="min-w-0 flex-1">
           <p className="font-semibold text-primary">{isOwner ? t("you") : t("anonymous")}</p>

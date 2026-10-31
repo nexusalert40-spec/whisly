@@ -1,11 +1,13 @@
 import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
-import { ArrowLeft, Coins, Crown, Headphones, Heart, Loader2, LogOut, Mic, UserRound } from "lucide-react";
+import { ArrowLeft, Coins, Crown, Headphones, Heart, Loader2, LogOut, Mic } from "lucide-react";
 import { toast } from "sonner";
 import { Logo } from "@/components/whisly/Logo";
 import { BottomNav } from "@/components/whisly/BottomNav";
 import { LanguageSwitcher } from "@/components/whisly/LanguageSwitcher";
 import { StoryCard } from "@/components/whisly/StoryCard";
+import { AvatarImage, EditProfile } from "@/components/whisly/EditProfile";
+import { useAvatarUrl } from "@/lib/avatar";
 import { useProfile } from "@/hooks/use-profile";
 import { countryLabel } from "@/lib/countries";
 import { useI18n } from "@/lib/i18n";
@@ -31,6 +33,7 @@ function Profile() {
   const { t } = useI18n();
   const qc = useQueryClient();
   const navigate = useNavigate();
+  const avatarSrc = useAvatarUrl(profile?.avatar_url);
   // Only this user's own published stories.
   const { data: stories, isLoading } = useQuery({
     queryKey: ["my-stories", profile?.id],
@@ -83,9 +86,7 @@ function Profile() {
       <div className="mt-6 grid gap-4 md:grid-cols-[minmax(0,1fr)_minmax(0,1fr)]">
         <section className="rounded-3xl bg-card p-5 shadow-soft">
           <div className="flex items-center gap-4">
-            <div className="flex size-16 shrink-0 items-center justify-center rounded-full bg-gradient-orb text-primary-foreground shadow-glow">
-              <UserRound className="size-9" fill="currentColor" />
-            </div>
+            <AvatarImage path={profile?.avatar_url} className="size-16 shrink-0" />
             <div className="min-w-0">
               <p className="truncate text-xl font-bold">{profile?.name || "Whisly user"}</p>
               <p className="text-sm text-muted-foreground">{countryLabel(profile?.country)}</p>
@@ -129,6 +130,8 @@ function Profile() {
         </section>
       </div>
 
+      {profile && <EditProfile profile={profile} />}
+
       <h2 className="mt-8 px-1 text-lg font-bold">{t("myStories")}</h2>
       <div className="mt-3 grid gap-4 md:grid-cols-2">
         {isLoading && <Loader2 className="mx-auto size-6 animate-spin text-primary" />}
@@ -138,6 +141,7 @@ function Profile() {
             key={s.id}
             story={s}
             isOwner
+            avatarSrc={avatarSrc}
             viewerId={profile?.id}
             onLike={() => {}}
             onSave={() => {}}
