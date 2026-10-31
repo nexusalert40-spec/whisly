@@ -63,7 +63,10 @@ export function EditProfile({ profile }: { profile: P }) {
     e.preventDefault();
     const f = nameSchema.safeParse(first);
     const l = nameSchema.safeParse(last);
-    if (!f.success || !l.success || !f.data) return toast.error(!f.data ? "Enter your first name" : "Max 50 characters");
+    if (!f.success || !l.success || !f.data) {
+      toast.error(!f.data ? "Enter your first name" : "Max 50 characters");
+      return;
+    }
     setBusy(true);
     try {
       await update({ first_name: f.data, last_name: l.data, name: `${f.data} ${l.data}`.trim() });

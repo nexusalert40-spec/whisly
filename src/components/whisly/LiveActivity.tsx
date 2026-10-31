@@ -28,7 +28,7 @@ export function LiveActivity() {
     return () => clearInterval(id);
   }, [data?.length]);
   if (!data?.length) return null;
-  const a = data[i % data.length];
+  const a = data[i % data.length]!;
   return (
     <div className="pointer-events-none fixed inset-x-0 top-[calc(env(safe-area-inset-top)+4.5rem)] z-40 flex justify-center px-4">
       <div
