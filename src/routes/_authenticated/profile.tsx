@@ -86,7 +86,7 @@ function Profile() {
       <div className="mt-6 grid gap-4 md:grid-cols-[minmax(0,1fr)_minmax(0,1fr)]">
         <section className="rounded-3xl bg-card p-5 shadow-soft">
           <div className="flex items-center gap-4">
-            <AvatarImage path={profile?.avatar_url} className="size-16 shrink-0" />
+            {profile ? <EditProfile profile={profile} /> : <AvatarImage path={null} className="size-16 shrink-0" />}
             <div className="min-w-0">
               <p className="truncate text-xl font-bold">{profile?.name || "Whisly user"}</p>
               <p className="text-sm text-muted-foreground">{countryLabel(profile?.country)}</p>
@@ -130,7 +130,6 @@ function Profile() {
         </section>
       </div>
 
-      {profile && <EditProfile profile={profile} />}
 
       <h2 className="mt-8 px-1 text-lg font-bold">{t("myStories")}</h2>
       <div className="mt-3 grid gap-4 md:grid-cols-2">

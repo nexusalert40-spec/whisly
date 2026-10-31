@@ -179,7 +179,7 @@
   100% { opacity: 0; transform: translateY(-6px); }
 }
 @utility animate-live-toast {
-  animation: live-toast 5s ease-in-out both;
+  animation: live-toast 4s cubic-bezier(0.22, 1, 0.36, 1) both;
 }
 @keyframes online-pulse {
   0%, 100% { box-shadow: 0 0 0 0 color-mix(in oklch, var(--online) 70%, transparent); }
@@ -187,4 +187,11 @@
 }
 @utility animate-online {
   animation: online-pulse 2s ease-in-out infinite;
+}
+@keyframes teaser-glow {
+  0%, 100% { box-shadow: 0 10px 30px -12px color-mix(in oklch, var(--brand-pink) 55%, transparent); }
+  50% { box-shadow: 0 14px 40px -10px color-mix(in oklch, var(--brand-violet) 70%, transparent); }
+}
+@utility animate-teaser-glow {
+  animation: teaser-glow 4s ease-in-out infinite;
 }

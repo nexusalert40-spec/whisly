@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import { useQueryClient } from "@tanstack/react-query";
-import { Camera, Loader2, UserRound } from "lucide-react";
+import { Camera, Loader2, Pencil, UserRound } from "lucide-react";
+import { Drawer, DrawerContent, DrawerHeader, DrawerTitle } from "@/components/ui/drawer";
 import { toast } from "sonner";
 import { z } from "zod";
 import { supabase } from "@/integrations/supabase/client";
@@ -24,6 +25,7 @@ export function AvatarImage({ path, className }: { path: string | null | undefin
 }
 
 export function EditProfile({ profile }: { profile: P }) {
+  const [open, setOpen] = useState(false);
   const { t } = useI18n();
   const qc = useQueryClient();
   const file = useRef<HTMLInputElement>(null);
@@ -71,6 +73,7 @@ export function EditProfile({ profile }: { profile: P }) {
     try {
       await update({ first_name: f.data, last_name: l.data, name: `${f.data} ${l.data}`.trim() });
       toast.success(t("profileSaved"));
+      setOpen(false);
     } catch {
       toast.error("Couldn't save profile");
     } finally {
@@ -80,28 +83,37 @@ export function EditProfile({ profile }: { profile: P }) {
 
   const input = "h-12 w-full rounded-2xl border border-input bg-background px-4 outline-none focus:ring-2 focus:ring-ring";
   return (
-    <section className="mt-4 rounded-3xl bg-card p-5 shadow-soft">
-      <h2 className="text-lg font-bold">{t("editProfile")}</h2>
-      <form onSubmit={onSave} className="mt-4 flex flex-col gap-4 sm:flex-row sm:items-end">
-        <button type="button" onClick={() => file.current?.click()} disabled={busy} className="relative mx-auto shrink-0 sm:mx-0" aria-label={t("changePhoto")}>
-          <AvatarImage path={profile.avatar_url} className="size-20" />
-          <span className="absolute bottom-0 end-0 flex size-8 items-center justify-center rounded-full bg-primary text-primary-foreground shadow-glow">
-            {busy ? <Loader2 className="size-4 animate-spin" /> : <Camera className="size-4" />}
-          </span>
-        </button>
-        <input ref={file} type="file" accept="image/*" hidden onChange={onPhoto} />
-        <label className="flex-1 text-sm font-medium">
-          {t("firstName")}
-          <input className={`${input} mt-1`} value={first} maxLength={50} onChange={(e) => setFirst(e.target.value)} />
-        </label>
-        <label className="flex-1 text-sm font-medium">
-          {t("lastName")}
-          <input className={`${input} mt-1`} value={last} maxLength={50} onChange={(e) => setLast(e.target.value)} />
-        </label>
-        <button disabled={busy} className="h-12 rounded-full bg-gradient-cta px-6 font-semibold text-primary-foreground shadow-glow disabled:opacity-60">
-          {t("saveChanges")}
-        </button>
-      </form>
-    </section>
+    <>
+      <button type="button" onClick={() => setOpen(true)} aria-label={t("editProfile")} className="relative shrink-0 rounded-full transition active:scale-95">
+        <AvatarImage path={profile.avatar_url} className="size-16" />
+        <span className="absolute -bottom-0.5 -end-0.5 flex size-6 items-center justify-center rounded-full bg-primary text-primary-foreground shadow-glow ring-2 ring-card">
+          <Pencil className="size-3" />
+        </span>
+      </button>
+      <Drawer open={open} onOpenChange={setOpen}>
+        <DrawerContent className="mx-auto max-w-md rounded-t-4xl pb-[calc(env(safe-area-inset-bottom)+1.5rem)]">
+          <DrawerHeader><DrawerTitle className="text-center text-lg">{t("editProfile")}</DrawerTitle></DrawerHeader>
+          <form onSubmit={onSave} className="flex flex-col gap-4 px-5">
+            <button type="button" onClick={() => file.current?.click()} disabled={busy} className="relative mx-auto" aria-label={t("changePhoto")}>
+              <AvatarImage path={profile.avatar_url} className="size-24" />
+              <span className="absolute bottom-0 end-0 flex size-9 items-center justify-center rounded-full bg-primary text-primary-foreground shadow-glow">
+                {busy ? <Loader2 className="size-4 animate-spin" /> : <Camera className="size-4" />}
+              </span>
+            </button>
+            <p className="-mt-2 text-center text-sm text-muted-foreground">{t("changePhoto")}</p>
+            <input ref={file} type="file" accept="image/*" hidden onChange={onPhoto} />
+            <label className="text-sm font-medium">{t("firstName")}
+              <input className={`${input} mt-1`} value={first} maxLength={50} onChange={(e) => setFirst(e.target.value)} />
+            </label>
+            <label className="text-sm font-medium">{t("lastName")}
+              <input className={`${input} mt-1`} value={last} maxLength={50} onChange={(e) => setLast(e.target.value)} />
+            </label>
+            <button disabled={busy} className="h-12 rounded-full bg-gradient-cta font-semibold text-primary-foreground shadow-glow disabled:opacity-60">
+              {t("saveChanges")}
+            </button>
+          </form>
+        </DrawerContent>
+      </Drawer>
+    </>
   );
 }
