@@ -70,7 +70,7 @@ function Welcome() {
       <div className="flex flex-col items-center text-center">
         <LogoMark className="h-24" />
         <h1 className="mt-4 text-6xl font-extrabold tracking-tight text-foreground">Whisly</h1>
-        <p className="mt-3 text-xl text-foreground/80">Your voice. Your story.</p>
+        <p dir="ltr" className="mt-3 text-xl text-foreground/80">Your voice. Your story.</p>
         <p className="mt-4 text-base leading-relaxed text-foreground/80">{t("homeLead")}</p>
       </div>
 
