@@ -1,6 +1,6 @@
 import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
-import { Mail, Loader2 } from "lucide-react";
+import { Mail, Loader2, Globe, Mic, Headphones } from "lucide-react";
 import { toast } from "sonner";
 import { LogoMark } from "@/components/whisly/Logo";
 import { GoogleIcon } from "@/components/whisly/fields";
@@ -12,10 +12,18 @@ import { DownloadApp } from "@/components/whisly/DownloadApp";
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
-      { title: "Whisly — Your voice. Your story." },
-      { name: "description", content: "Record and share voice stories with people from your country." },
-      { property: "og:title", content: "Whisly — Your voice. Your story." },
-      { property: "og:description", content: "Record and share voice stories with people from your country." },
+      { title: "Whisly — Record and share voice stories from your country" },
+      {
+        name: "description",
+        content:
+          "Whisly is a voice-story app: record a moment from your life in up to 5 minutes, publish it to your country's feed, and listen to real stories from people near you.",
+      },
+      { property: "og:title", content: "Whisly — Record and share voice stories from your country" },
+      {
+        property: "og:description",
+        content:
+          "Record a true story in your own voice, share it with people in your country, and listen to real voice stories from people near you.",
+      },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary" },
     ],
@@ -51,15 +59,22 @@ function Welcome() {
     navigate({ to: "/feed", replace: true });
   }
 
+  const steps = [
+    { icon: Globe, title: t("homeStep1Title"), body: t("homeStep1Body") },
+    { icon: Mic, title: t("homeStep2Title"), body: t("homeStep2Body") },
+    { icon: Headphones, title: t("homeStep3Title"), body: t("homeStep3Body") },
+  ];
+
   return (
-    <main className="mx-auto flex min-h-dvh max-w-md flex-col px-6 pb-[calc(2rem+env(safe-area-inset-bottom))] pt-[calc(4rem+env(safe-area-inset-top))]">
+    <main className="mx-auto flex min-h-dvh max-w-md flex-col px-6 pb-[calc(2rem+env(safe-area-inset-bottom))] pt-[calc(3rem+env(safe-area-inset-top))]">
       <div className="flex flex-col items-center text-center">
         <LogoMark className="h-24" />
         <h1 className="mt-4 text-6xl font-extrabold tracking-tight text-foreground">Whisly</h1>
-        <p className="mt-3 text-xl text-foreground/80">Your voice. Your story.</p>
+        <p dir="ltr" className="mt-3 text-xl text-foreground/80">Your voice. Your story.</p>
+        <p className="mt-4 text-base leading-relaxed text-foreground/80">{t("homeLead")}</p>
       </div>
 
-      <div className="mt-16 space-y-4">
+      <div className="mt-10 space-y-4">
         <button
           onClick={google}
           disabled={busy}
@@ -86,6 +101,26 @@ function Welcome() {
           Create account
         </Link>
       </p>
+
+      <section className="mt-10">
+        <h2 className="text-center text-lg font-bold text-foreground">{t("homeHow")}</h2>
+        <ol className="mt-4 space-y-3">
+          {steps.map(({ icon: Icon, title, body }) => (
+            <li key={title} className="flex items-start gap-3 rounded-3xl bg-card p-4 shadow-soft">
+              <span className="flex size-10 shrink-0 items-center justify-center rounded-2xl bg-gradient-brand text-primary-foreground">
+                <Icon className="size-5" />
+              </span>
+              <span>
+                <span className="block font-semibold text-foreground">{title}</span>
+                <span className="mt-1 block text-sm leading-relaxed text-muted-foreground">{body}</span>
+              </span>
+            </li>
+          ))}
+        </ol>
+        <p className="mt-4 text-sm leading-relaxed text-muted-foreground">{t("homeCategories")}</p>
+        <p className="mt-2 text-sm leading-relaxed text-muted-foreground">{t("homeMood")}</p>
+        <p className="mt-4 text-sm leading-relaxed text-foreground/80">{t("homeFor")}</p>
+      </section>
 
       <DownloadApp />
 
