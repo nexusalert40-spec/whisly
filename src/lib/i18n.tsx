@@ -19,6 +19,7 @@ export const LANGS = [
 export type Lang = (typeof LANGS)[number]["code"];
 
 const en = {
+  contactEditor: "Contact Editor",
   legalTitle: "Privacy Policy & Terms of Use",
   legalUpdated: "Last updated: October 30, 2026",
   legalIntro: "These Terms of Use and Privacy Policy govern your access to Whisly, a voice-story community. Please read both documents before registering. Select I Agree to proceed to registration, or I Do Not Agree to leave Whisly.",
