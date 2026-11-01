@@ -16,6 +16,7 @@ import { reportLovableError } from "../lib/lovable-error-reporting";
 import { Toaster } from "@/components/ui/sonner";
 import { supabase } from "@/integrations/supabase/client";
 import { initInstallPrompt, registerAppServiceWorker } from "@/lib/pwa";
+import { ContactButton } from "@/components/whisly/ContactButton";
 
 function NotFoundComponent() {
   return (
@@ -88,9 +89,12 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       { name: "apple-mobile-web-app-status-bar-style", content: "default" },
       { name: "apple-mobile-web-app-title", content: "Whisly" },
       { name: "format-detection", content: "telephone=no" },
-      { title: "Whisly — Your voice. Your story." },
-      { name: "description", content: "Share and listen to voice stories from people near you." },
+      { title: "Whisly — Record and share voice stories" },
+      { name: "description", content: "Whisly is a voice-story app: record real moments in your own voice and listen to stories from people in your country." },
+      { name: "keywords", content: "voice stories, audio stories, share your story, voice recording app, storytelling community, listen to stories, Whisly" },
+      { name: "google-site-verification", content: "C5NIXmexTgdzFBnqZy9Q_3kU6JG6MvYebZdVjGihAt4" },
       { property: "og:type", content: "website" },
+      { property: "og:site_name", content: "Whisly" },
       { name: "twitter:card", content: "summary_large_image" },
     ],
     links: [
@@ -104,6 +108,13 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       { rel: "icon", href: "/favicon.png", type: "image/png" },
       { rel: "manifest", href: "/manifest.webmanifest" },
       { rel: "apple-touch-icon", href: "/apple-touch-icon.png" },
+    ],
+    scripts: [
+      {
+        async: true,
+        src: "https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8012316494094103",
+        crossOrigin: "anonymous",
+      },
     ],
   }),
   shellComponent: RootShell,
@@ -150,6 +161,7 @@ function RootComponent() {
     <QueryClientProvider client={queryClient}>
       <I18nProvider>
         <Outlet />
+        <ContactButton />
       </I18nProvider>
       <Toaster position="top-center" />
     </QueryClientProvider>
