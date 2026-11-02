@@ -59,7 +59,7 @@ function Login() {
   return (
     <main className="relative mx-auto min-h-screen max-w-md overflow-hidden px-6 pb-40 pt-6">
       <div className="flex items-center gap-4">
-        <Link to="/" aria-label="Back" className="text-primary">
+        <Link to="/auth" aria-label="Back" className="text-primary">
           <ArrowLeft className="size-7" />
         </Link>
         <Logo />
