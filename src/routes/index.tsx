@@ -1,133 +1,90 @@
-import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
-import { useEffect, useState } from "react";
-import { Mail, Loader2, Globe, Mic, Headphones } from "lucide-react";
-import { toast } from "sonner";
-import { LogoMark } from "@/components/whisly/Logo";
-import { GoogleIcon } from "@/components/whisly/fields";
-import { signInWithGoogle } from "@/lib/auth";
-import { supabase } from "@/integrations/supabase/client";
+import { createFileRoute, Link } from "@tanstack/react-router";
+import { Globe, Mic, Headphones, Heart, Gift, Sparkles, MessageCircle, Shield } from "lucide-react";
+import { Logo, LogoMark } from "@/components/whisly/Logo";
 import { useI18n } from "@/lib/i18n";
 import { DownloadApp } from "@/components/whisly/DownloadApp";
+
+const TITLE = "Whisly — Social audio app for real voice stories";
+const DESC =
+  "Whisly is a social audio platform: record a true story in your own voice (up to 5 minutes), share it with your country's feed, and listen to real stories from people near you.";
 
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
-      { title: "Whisly — Record and share voice stories from your country" },
-      {
-        name: "description",
-        content:
-          "Whisly is a voice-story app: record a moment from your life in up to 5 minutes, publish it to your country's feed, and listen to real stories from people near you.",
-      },
-      { property: "og:title", content: "Whisly — Record and share voice stories from your country" },
-      {
-        property: "og:description",
-        content:
-          "Record a true story in your own voice, share it with people in your country, and listen to real voice stories from people near you.",
-      },
+      { title: TITLE },
+      { name: "description", content: DESC },
+      { property: "og:title", content: TITLE },
+      { property: "og:description", content: DESC },
       { property: "og:type", content: "website" },
+      { property: "og:url", content: "https://whisly.lovable.app/" },
       { name: "twitter:card", content: "summary" },
     ],
+    links: [{ rel: "canonical", href: "https://whisly.lovable.app/" }],
   }),
-  component: Welcome,
+  component: Landing,
 });
 
-function Welcome() {
+const FEATURES = [
+  { icon: Mic, title: "Record in your voice", body: "Tap the mic and tell a real moment from your life in up to 5 minutes." },
+  { icon: Globe, title: "Your country's feed", body: "Stories are shared with listeners in your own country, so they feel close to home." },
+  { icon: Headphones, title: "Listen by category", body: "Love, life, friendship, family, freedom and more — pick what you want to hear." },
+  { icon: Sparkles, title: "Mood match", body: "Describe how you feel and Whisly suggests stories that fit your mood." },
+  { icon: Heart, title: "Like and save", body: "Keep the stories that move you and show creators you listened." },
+  { icon: Gift, title: "Support creators", body: "Gift credits to storytellers whose voices you love." },
+  { icon: MessageCircle, title: "Messages", body: "Chat privately with other members and get live notifications." },
+  { icon: Shield, title: "Private by design", body: "Recordings are stored privately and only signed-in members can listen." },
+];
+
+function Landing() {
   const { t } = useI18n();
-  const navigate = useNavigate();
-  const [busy, setBusy] = useState(false);
-
-  // Already signed in (or just back from Google) → go to the feed.
-  useEffect(() => {
-    supabase.auth.getSession().then(({ data }) => {
-      if (data.session) navigate({ to: "/feed", replace: true });
-    });
-    const { data } = supabase.auth.onAuthStateChange((e, s) => {
-      if (e === "SIGNED_IN" && s) navigate({ to: "/feed", replace: true });
-    });
-    return () => data.subscription.unsubscribe();
-  }, [navigate]);
-
-  async function google() {
-    setBusy(true);
-    const res = await signInWithGoogle();
-    if (res.error) {
-      toast.error("Google sign-in failed. Please try again.");
-      setBusy(false);
-      return;
-    }
-    if (res.redirected) return;
-    navigate({ to: "/feed", replace: true });
-  }
-
-  const steps = [
-    { icon: Globe, title: t("homeStep1Title"), body: t("homeStep1Body") },
-    { icon: Mic, title: t("homeStep2Title"), body: t("homeStep2Body") },
-    { icon: Headphones, title: t("homeStep3Title"), body: t("homeStep3Body") },
-  ];
-
   return (
-    <main className="mx-auto flex min-h-dvh max-w-md flex-col px-6 pb-[calc(2rem+env(safe-area-inset-bottom))] pt-[calc(3rem+env(safe-area-inset-top))]">
-      <div className="flex flex-col items-center text-center">
-        <LogoMark className="h-24" />
-        <h1 className="mt-4 text-6xl font-extrabold tracking-tight text-foreground">Whisly</h1>
-        <p dir="ltr" className="mt-3 text-xl text-foreground/80">Your voice. Your story.</p>
-        <p className="mt-4 text-base leading-relaxed text-foreground/80">{t("homeLead")}</p>
-      </div>
+    <div className="mx-auto flex min-h-dvh max-w-5xl flex-col px-5 pt-[env(safe-area-inset-top)]">
+      <header className="flex items-center justify-between py-4">
+        <Link to="/" aria-label="Whisly home"><Logo size="sm" /></Link>
+        <nav className="flex items-center gap-2">
+          <Link to="/auth" className="rounded-full px-4 py-2 text-sm font-semibold text-primary">Login</Link>
+          <Link to="/signup" className="rounded-full bg-primary px-4 py-2 text-sm font-semibold text-primary-foreground shadow-glow">Sign Up</Link>
+        </nav>
+      </header>
 
-      <div className="mt-10 space-y-4">
-        <button
-          onClick={google}
-          disabled={busy}
-          className="flex h-15 w-full items-center justify-center gap-4 rounded-full bg-card text-lg font-medium text-foreground shadow-soft transition active:scale-[0.98] disabled:opacity-60"
-        >
-          {busy ? <Loader2 className="size-5 animate-spin" /> : <GoogleIcon />}
-          Continue with Google
-        </button>
-        <Link
-          to="/login"
-          className="flex h-15 w-full items-center justify-center gap-4 rounded-full bg-primary text-lg font-medium text-primary-foreground shadow-glow transition active:scale-[0.98]"
-        >
-          <Mail className="size-6" />
-          Continue with email
-        </Link>
-      </div>
+      <main className="flex-1">
+        <section className="flex flex-col items-center py-10 text-center">
+          <LogoMark className="h-20" />
+          <h1 className="mt-5 max-w-2xl text-4xl font-extrabold tracking-tight text-foreground sm:text-5xl">
+            The social audio app for <span className="text-gradient-brand">real voice stories</span>
+          </h1>
+          <p className="mt-4 max-w-xl text-base leading-relaxed text-foreground/80 sm:text-lg">{t("homeLead")}</p>
+          <div className="mt-7 flex w-full max-w-sm flex-col gap-3 sm:flex-row">
+            <Link to="/signup" className="flex h-13 flex-1 items-center justify-center rounded-full bg-primary py-3 font-semibold text-primary-foreground shadow-glow">Sign Up free</Link>
+            <Link to="/auth" className="flex h-13 flex-1 items-center justify-center rounded-full bg-card py-3 font-semibold text-foreground shadow-soft">Login</Link>
+          </div>
+        </section>
 
-      <div className="mt-8 flex items-center gap-4 px-6 text-sm font-semibold text-muted-foreground">
-        <span className="h-px flex-1 bg-border" /> OR <span className="h-px flex-1 bg-border" />
-      </div>
-      <p className="mt-6 text-center text-foreground/80">
-        New to Whisly?{" "}
-        <Link to="/signup" className="font-semibold text-primary">
-          Create account
-        </Link>
-      </p>
+        <section className="py-8">
+          <h2 className="text-center text-2xl font-bold text-foreground">Features</h2>
+          <ul className="mt-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+            {FEATURES.map(({ icon: Icon, title, body }) => (
+              <li key={title} className="rounded-3xl bg-card p-5 shadow-soft">
+                <span className="flex size-10 items-center justify-center rounded-2xl bg-gradient-brand text-primary-foreground"><Icon className="size-5" /></span>
+                <h3 className="mt-3 font-semibold text-foreground">{title}</h3>
+                <p className="mt-1 text-sm leading-relaxed text-muted-foreground">{body}</p>
+              </li>
+            ))}
+          </ul>
+        </section>
 
-      <section className="mt-10">
-        <h2 className="text-center text-lg font-bold text-foreground">{t("homeHow")}</h2>
-        <ol className="mt-4 space-y-3">
-          {steps.map(({ icon: Icon, title, body }) => (
-            <li key={title} className="flex items-start gap-3 rounded-3xl bg-card p-4 shadow-soft">
-              <span className="flex size-10 shrink-0 items-center justify-center rounded-2xl bg-gradient-brand text-primary-foreground">
-                <Icon className="size-5" />
-              </span>
-              <span>
-                <span className="block font-semibold text-foreground">{title}</span>
-                <span className="mt-1 block text-sm leading-relaxed text-muted-foreground">{body}</span>
-              </span>
-            </li>
-          ))}
-        </ol>
-        <p className="mt-4 text-sm leading-relaxed text-muted-foreground">{t("homeCategories")}</p>
-        <p className="mt-2 text-sm leading-relaxed text-muted-foreground">{t("homeMood")}</p>
-        <p className="mt-4 text-sm leading-relaxed text-foreground/80">{t("homeFor")}</p>
-      </section>
+        <section className="mx-auto max-w-md py-4"><DownloadApp /></section>
+      </main>
 
-      <DownloadApp />
-
-      <p className="mt-auto pt-10 text-center text-xs text-muted-foreground">
-        {t("legalFooterPrefix")}{" "}
-        <Link to="/legal" className="font-semibold text-primary underline-offset-4 hover:underline">{t("legalTitle")}</Link>
-      </p>
-    </main>
+      <footer className="mt-10 border-t border-border py-6 pb-[calc(1.5rem+env(safe-area-inset-bottom))] text-center text-sm text-muted-foreground">
+        <nav className="flex flex-wrap justify-center gap-4">
+          <Link to="/legal" className="hover:text-primary">{t("legalTitle")}</Link>
+          <a href="mailto:nexusalert40@gmail.com" className="hover:text-primary">Contact</a>
+          <Link to="/auth" className="hover:text-primary">Login</Link>
+          <Link to="/signup" className="hover:text-primary">Sign Up</Link>
+        </nav>
+        <p className="mt-3">© {new Date().getFullYear()} Whisly. Your voice. Your story.</p>
+      </footer>
+    </div>
   );
 }
