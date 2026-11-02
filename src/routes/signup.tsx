@@ -64,7 +64,7 @@ function Signup() {
   return (
     <main className="relative mx-auto min-h-screen max-w-md overflow-hidden px-5 pb-36 pt-6">
       <div className="flex items-center justify-between text-foreground">
-        <Link to="/" aria-label="Back">
+        <Link to="/auth" aria-label="Back">
           <ChevronLeft className="size-7" />
         </Link>
         <CircleHelp className="size-7" />

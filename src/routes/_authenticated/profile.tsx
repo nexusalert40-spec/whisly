@@ -53,7 +53,7 @@ function Profile() {
     await qc.cancelQueries();
     qc.clear();
     await supabase.auth.signOut();
-    navigate({ to: "/", replace: true });
+    navigate({ to: "/auth", replace: true });
   }
 
   const expiry = profile?.subscription_expiry_date ? new Date(profile.subscription_expiry_date) : null;
