@@ -7,3 +7,4 @@
 - [ ] Google Pay charging — waiting on a card processor + Google merchant ID (sheet works in TEST mode)
 - [ ] First admin account — waiting on which email should be admin
 - [ ] First ad campaign — direction, image headline and all four final images approved; platform copy next; account connection declined, tracking and spend approval pending
+- [ ] Publish to whisly.lovable.app — re-publish requested 2026-11-02 15:07 UTC; confirm the deploy finished and the URL serves
